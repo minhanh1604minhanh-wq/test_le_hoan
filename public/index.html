@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#efe3ca">
+  <title>Bảo tàng lịch sử tương tác — Lê Hoàn</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js" defer></script>
+</head>
+<body>
+  <model-viewer id="historyModel" camera-controls auto-rotate rotation-per-second="-8deg" interaction-prompt="none" shadow-intensity="1.1" exposure="1.05" camera-orbit="0deg 75deg 105%" min-camera-orbit="auto auto 45%" max-camera-orbit="auto auto 210%" alt="Mô hình 3D nhân vật lịch sử"></model-viewer>
+
+  <div id="modelState" class="model-state paper-card" role="status">
+    <strong id="modelStateTitle">Đang chuẩn bị hiện vật 3D…</strong>
+    <span id="modelStateText">Đang tải mô hình.</span>
+    <button id="retryModelBtn" class="ink-btn compact hidden" type="button">Tải lại mô hình</button>
+  </div>
+
+  <header id="appHeader" class="app-header hidden">
+    <div class="identity paper-card">
+      <span class="stamp"><span id="headerStampLabel">HỒ SƠ</span> <b id="characterCode">01</b></span>
+      <div>
+        <small id="identityPeriod">Đại Cồ Việt</small>
+        <h1 id="identityName">Lê Hoàn</h1>
+      </div>
+    </div>
+    <div class="status-cluster">
+      <span id="connectionBadge" class="status-badge checking">● Đang kiểm tra</span>
+    </div>
+  </header>
+
+  <section id="introScreen" class="intro-screen">
+    <div class="intro-card paper-card">
+      <div id="introStamp" class="intro-stamp">HỒ SƠ KHẢO CỨU</div>
+      <p id="introEyebrow" class="eyebrow">BẢO TÀNG LỊCH SỬ SỐ TƯƠNG TÁC</p>
+      <h1 id="introName">LÊ HOÀN</h1>
+      <p id="introText" class="intro-copy">Đang tải hồ sơ…</p>
+      <div class="intro-meta" id="introMeta"></div>
+      <label id="playerNameLabel" class="field-label" for="playerName">Tên người khám phá</label>
+      <div class="input-row">
+        <input id="playerName" maxlength="40" autocomplete="name" placeholder="Nhập tên của bạn…">
+        <button id="startBtn" class="ink-btn primary" type="button">Bắt đầu khám phá</button>
+      </div>
+      <div class="intro-actions intro-actions-simple">
+        <button id="introLangBtn" class="text-btn" type="button">English</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="dustScreen" class="dust-screen hidden" aria-label="Khám phá hiện vật">
+    <div class="dust-card paper-card">
+      <div id="secretText" class="secret-text"></div>
+      <canvas id="dustCanvas"></canvas>
+      <div id="dustInstruction" class="dust-instruction">
+        <p id="dustEyebrow" class="eyebrow">KHÁM PHÁ HIỆN VẬT</p>
+        <h2 id="dustTitle">Thổi vào micro hoặc quét lớp bụi thời gian</h2>
+        <p id="dustHint">Âm thanh quét và thổi đã được tắt. Micro chỉ dùng để nhận cường độ hơi thổi.</p>
+      </div>
+      <div class="dust-footer">
+        <div class="dust-progress"><span id="dustProgressBar"></span></div>
+        <span id="dustProgressText">0%</span>
+        <button id="brushModeBtn" class="ink-btn compact" type="button">Dùng chổi</button>
+        <button id="skipDustBtn" class="text-btn" type="button">Bỏ qua</button>
+      </div>
+    </div>
+  </section>
+
+  <nav id="mainNav" class="main-nav hidden" aria-label="Hoạt động chính">
+    <button id="navProfile" class="nav-btn nav-profile-btn" data-panel="profilePanel" type="button">
+      <span class="nav-icon" aria-hidden="true">▤</span>
+      <span class="nav-copy"><b>Hồ sơ</b><small id="navProfileHint">Thông tin &amp; nguồn</small></span>
+    </button>
+    <span class="nav-divider" aria-hidden="true"></span>
+    <div class="function-group" role="group" aria-labelledby="functionDockLabel">
+      <span id="functionDockLabel" class="function-dock-label">CÔNG CỤ HỌC TẬP</span>
+      <button id="navQa" class="nav-btn function-btn function-qa" data-panel="qaPanel" type="button">
+        <span class="nav-icon" aria-hidden="true">?</span>
+        <span class="nav-copy"><b>Tra cứu sử liệu</b><small id="navQaHint">Đặt câu hỏi lịch sử</small></span>
+        <span class="nav-arrow" aria-hidden="true">›</span>
+      </button>
+      <button id="navWhatif" class="nav-btn function-btn function-whatif" data-panel="whatifPanel" type="button">
+        <span class="nav-icon" aria-hidden="true">↝</span>
+        <span class="nav-copy"><b>Giả định lịch sử</b><small id="navWhatifHint">Phân tích “nếu như”</small></span>
+        <span class="nav-arrow" aria-hidden="true">›</span>
+      </button>
+      <button id="navRoleplay" class="nav-btn function-btn function-roleplay" data-panel="roleplayPanel" type="button">
+        <span class="nav-icon" aria-hidden="true">⚑</span>
+        <span class="nav-copy"><b>Nhập vai quyết sách</b><small id="navRoleplayHint">Chọn phương án xử lý</small></span>
+        <span class="nav-arrow" aria-hidden="true">›</span>
+      </button>
+    </div>
+  </nav>
+
+  <aside id="utilityRail" class="utility-rail hidden" aria-label="Công cụ">
+    <button class="utility-btn" data-panel="guidePanel" title="Hướng dẫn" type="button">?</button>
+    <button class="utility-btn" data-panel="sourcesPanel" title="Nguồn sử liệu" type="button">≡</button>
+    <button class="utility-btn" data-panel="journeyPanel" title="Tiến trình" type="button">✓</button>
+    <button id="resetCameraBtn" class="utility-btn" title="Góc nhìn ban đầu" type="button">↺</button>
+    <button id="audioBtn" class="utility-btn" title="Âm thanh" type="button">🔊</button>
+    <button id="langBtn" class="utility-btn text-small" title="Ngôn ngữ" type="button">EN</button>
+    <button id="finishBtn" class="utility-btn finish" title="Kết thúc phiên" type="button">■</button>
+  </aside>
+
+  <div id="panelBackdrop" class="panel-backdrop hidden"></div>
+
+  <section id="profilePanel" class="panel hidden" aria-label="Hồ sơ nhân vật">
+    <button class="panel-close" type="button" aria-label="Đóng">×</button>
+    <div class="panel-head">
+      <p id="profileEyebrow" class="eyebrow">HỒ SƠ NHÂN VẬT</p>
+      <h2 id="profileTitle">Lê Hoàn</h2>
+      <p id="profileLead" class="muted"></p>
+    </div>
+    <div id="profileFacts" class="fact-strip"></div>
+    <div class="section-heading"><span id="timelineHeading">Dòng thời gian</span><small id="timelineHint">Dữ kiện gắn nguồn</small></div>
+    <div id="timeline" class="timeline"></div>
+    <div class="section-heading"><span id="fullInfoHeading">Thông tin đầy đủ</span><small id="fullInfoHint">Phân biệt sự kiện, lời bình và điểm chưa thống nhất</small></div>
+    <div id="profileSections" class="profile-sections"></div>
+    <div id="sourceReminder" class="source-reminder"><span id="sourceReminderPrefix">Mọi chi tiết dùng trong bài học nên được kiểm tra lại bằng nguồn được liệt kê ở mục </span><button id="sourceReminderBtn" class="inline-link" data-open="sourcesPanel" type="button">Nguồn sử liệu</button><span id="sourceReminderSuffix">.</span></div>
+  </section>
+
+  <section id="qaPanel" class="panel hidden" aria-label="Tra cứu sử liệu">
+    <button class="panel-close" type="button" aria-label="Đóng">×</button>
+    <div class="panel-head">
+      <p id="qaEyebrow" class="eyebrow">HOẠT ĐỘNG 1</p><h2 id="qaHeading">Tra cứu sử liệu</h2>
+      <p id="qaLead" class="muted">Câu trả lời phải chỉ ra dữ kiện nền, nguồn hỗ trợ và phần cần kiểm chứng.</p>
+    </div>
+    <div id="qaSuggestions" class="chips"></div>
+    <div class="query-row">
+      <input id="qaInput" maxlength="600" placeholder="Ví dụ: Vì sao Lê Hoàn lên ngôi năm 980?">
+      <button id="qaMicBtn" class="ink-btn compact" type="button">🎙 Mic</button>
+      <button id="qaSendBtn" class="ink-btn primary compact" type="button">Tra cứu</button>
+    </div>
+    <div id="qaStatus" class="activity-status"></div>
+    <div id="qaResult" class="result-card empty">Chọn một câu gợi ý hoặc đặt câu hỏi của bạn.</div>
+  </section>
+
+  <section id="whatifPanel" class="panel hidden" aria-label="Giả định lịch sử">
+    <button class="panel-close" type="button" aria-label="Đóng">×</button>
+    <div class="panel-head">
+      <p id="whatifEyebrow" class="eyebrow">HOẠT ĐỘNG 2</p><h2 id="whatifHeading">Giả định lịch sử</h2>
+      <p id="whatifLead" class="muted">Mô phỏng để học quan hệ nguyên nhân–hậu quả. Không phải dự đoán và không dùng phần trăm giả tạo.</p>
+    </div>
+    <div id="whatifSuggestions" class="chips"></div>
+    <div class="query-row">
+      <input id="whatifInput" maxlength="700" placeholder="Nếu một điều kiện lịch sử thay đổi thì…">
+      <button id="whatifMicBtn" class="ink-btn compact" type="button">🎙 Mic</button>
+      <button id="whatifSendBtn" class="ink-btn primary compact" type="button">Phân tích</button>
+    </div>
+    <div id="whatifStatus" class="activity-status"></div>
+    <div id="whatifResult" class="result-card empty">Mỗi lần chỉ thay đổi một điều kiện để phân tích rõ hơn.</div>
+  </section>
+
+  <section id="roleplayPanel" class="panel hidden" aria-label="Nhập vai quyết sách">
+    <button class="panel-close" type="button" aria-label="Đóng">×</button>
+    <div class="panel-head">
+      <p id="roleplayEyebrow" class="eyebrow">HOẠT ĐỘNG 3</p><h2 id="roleplayTitle">Nhập vai quyết sách</h2>
+      <p id="roleplayContext" class="muted"></p>
+    </div>
+    <div id="roleplayDimensions" class="dimension-row"></div>
+    <div class="role-meta"><span id="roleTurn">Lượt 0 / 6</span><span id="roleSimulationLabel">⚑ Mô phỏng giáo dục</span></div>
+    <div id="roleplayStatus" class="activity-status"></div>
+    <div id="roleplayResult" class="result-card empty">Nhấn bắt đầu để nhận tình huống đầu tiên.</div>
+    <div id="roleplayChoices" class="choice-list"></div>
+    <div class="panel-actions">
+      <button id="roleplayStartBtn" class="ink-btn primary" type="button">Bắt đầu tình huống</button>
+      <button id="roleplayExportBtn" class="ink-btn hidden" type="button">Xuất phiếu học tập</button>
+    </div>
+  </section>
+
+  <section id="sourcesPanel" class="panel small hidden" aria-label="Nguồn sử liệu">
+    <button class="panel-close" type="button" aria-label="Đóng">×</button>
+    <div class="panel-head"><p id="sourcesEyebrow" class="eyebrow">KIỂM CHỨNG</p><h2 id="sourcesHeading">Nguồn sử liệu mẫu</h2><p id="sourcesLead" class="muted">Nguồn được phân loại theo vai trò. Nguồn di sản hiện đại không tự động thay thế chính sử cho chi tiết thế kỷ X.</p></div>
+    <div id="sourcesList" class="sources-list"></div>
+  </section>
+
+  <section id="guidePanel" class="panel small hidden" aria-label="Hướng dẫn">
+    <button class="panel-close" type="button" aria-label="Đóng">×</button>
+    <div class="panel-head"><p id="guideEyebrow" class="eyebrow">HƯỚNG DẪN</p><h2 id="guideHeading">Cách khám phá</h2></div>
+    <ol id="guideList" class="guide-list">
+      <li><b>Quan sát 3D:</b> kéo để xoay, cuộn hoặc chụm để phóng to.</li>
+      <li><b>Hồ sơ:</b> đọc timeline, nội dung đầy đủ và mở nguồn để đối chiếu.</li>
+      <li><b>Tra cứu:</b> AI chỉ dùng kho dữ kiện đã biên tập và phải chỉ nguồn.</li>
+      <li><b>Giả định:</b> thay đổi một điều kiện, xem chuỗi hậu quả có thể xảy ra.</li>
+      <li><b>Nhập vai:</b> cân nhắc quân sự, ngoại giao, lòng dân và hậu cần.</li>
+    </ol>
+    <div id="guideNote" class="note-box">Nếu mạng/API lỗi, mô hình 3D, hồ sơ và nguồn sử liệu vẫn hoạt động.<br><br><b>Lưu ý âm thanh:</b> giọng đọc các phản hồi do máy chủ tạo là giọng tổng hợp bằng AI, không phải giọng người thật.</div>
+  </section>
+
+  <section id="journeyPanel" class="panel small hidden" aria-label="Tiến trình khám phá">
+    <button class="panel-close" type="button" aria-label="Đóng">×</button>
+    <div class="panel-head"><p id="journeyEyebrow" class="eyebrow">HÀNH TRÌNH</p><h2 id="journeyHeading">Tiến trình khám phá</h2></div>
+    <div id="journeyList" class="journey-list"></div>
+    <button id="journeyFinishBtn" class="journey-summary-btn" type="button"><span class="journey-summary-icon">◎</span><span class="journey-summary-copy"><strong id="journeyFinishLabel">Xem tổng kết hành trình</strong><small id="journeyFinishHint">Thời gian • hoạt động • tiến trình</small></span><span class="journey-summary-arrow" aria-hidden="true">→</span></button>
+  </section>
+
+  <section id="summaryPanel" class="panel small hidden" aria-label="Tổng kết phiên học">
+    <button class="panel-close" type="button" aria-label="Đóng">×</button>
+    <div id="summaryPrintable">
+      <div class="panel-head"><p id="summaryEyebrow" class="eyebrow">TỔNG KẾT</p><h2 id="summaryTitle">Hành trình khám phá</h2><p id="summarySubtitle" class="muted"></p></div>
+      <div id="summaryStats" class="summary-grid"></div>
+      <div id="summaryJourney" class="summary-journey"></div>
+      <div id="summaryNote" class="note-box">Các phần “Giả định lịch sử” và “Nhập vai” là mô phỏng giáo dục, không phải diễn biến lịch sử đã xảy ra.</div>
+    </div>
+    <div class="panel-actions">
+      <button id="summaryPdfBtn" class="ink-btn" type="button">Xuất PDF</button>
+      <button id="newSessionBtn" class="ink-btn primary" type="button">Phiên mới</button>
+    </div>
+  </section>
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <audio id="narrationVi" preload="auto"></audio>
+  <audio id="narrationEn" preload="auto"></audio>
+
+  <script src="./config.js"></script>
+  <script src="./app.js" defer></script>
+</body>
+</html>

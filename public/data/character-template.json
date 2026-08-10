@@ -1,0 +1,83 @@
+{
+  "id": "ten-khong-dau",
+  "name": "Tên nhân vật",
+  "englishName": "English name",
+  "regnalName": "Tên hiệu nếu có",
+  "regnalNameEn": "English regnal name if needed",
+  "dynasty": "Triều đại / giai đoạn",
+  "dynastyEn": "Dynasty / period",
+  "period": "Phạm vi lịch sử",
+  "periodEn": "Historical period",
+  "years": "Năm sinh – mất",
+  "reign": "Thời gian hoạt động / trị vì",
+  "capital": "Địa điểm trung tâm nếu phù hợp",
+  "capitalEn": "Central location if relevant",
+  "stateName": "Quốc hiệu nếu phù hợp",
+  "stateNameEn": "State name if relevant",
+  "model": "./assets/ten-nhan-vat.glb",
+  "narration": {
+    "vi": "./assets/ten-nhan-vat-vi.mp3",
+    "en": "./assets/ten-nhan-vat-en.mp3"
+  },
+  "intro": {
+    "vi": "Giới thiệu ngắn bằng tiếng Việt.",
+    "en": "Short English introduction."
+  },
+  "dustSecret": {
+    "vi": "Thông điệp sau lớp bụi.",
+    "en": "Message revealed beneath the dust."
+  },
+  "profileSections": [
+    {
+      "id": "section-1",
+      "title": "Tiêu đề tiếng Việt",
+      "titleEn": "English title",
+      "body": "Nội dung tiếng Việt có kiểm chứng.",
+      "bodyEn": "Verified English content.",
+      "sourceIds": ["source-1"]
+    }
+  ],
+  "timeline": [
+    {
+      "year": "0000",
+      "text": "Mốc tiếng Việt.",
+      "textEn": "English timeline entry.",
+      "sourceIds": ["source-1"]
+    }
+  ],
+  "facts": [
+    {
+      "id": "f1",
+      "text": "Dữ kiện tiếng Việt.",
+      "textEn": "English evidence statement.",
+      "sourceIds": ["source-1"]
+    }
+  ],
+  "sources": [
+    {
+      "id": "source-1",
+      "title": "Tên nguồn",
+      "titleEn": "English source title",
+      "organization": "Cơ quan",
+      "organizationEn": "Organization",
+      "type": "Loại nguồn",
+      "typeEn": "Source type",
+      "url": "https://example.com",
+      "note": "Ghi chú cách dùng nguồn.",
+      "noteEn": "Note explaining how this source should be used."
+    }
+  ],
+  "qaSuggestions": ["Câu hỏi gợi ý tiếng Việt"],
+  "qaSuggestionsEn": ["Suggested question in English"],
+  "whatIfSuggestions": ["Giả định tiếng Việt"],
+  "whatIfSuggestionsEn": ["English counterfactual suggestion"],
+  "roleplay": {
+    "title": "Tên tình huống",
+    "titleEn": "Scenario title",
+    "context": "Bối cảnh mô phỏng",
+    "contextEn": "Simulation context",
+    "dimensions": ["Quân sự", "Ngoại giao", "Lòng dân", "Hậu cần"],
+    "dimensionsEn": ["Military", "Diplomacy", "Public support", "Logistics"],
+    "maxTurns": 6
+  }
+}
