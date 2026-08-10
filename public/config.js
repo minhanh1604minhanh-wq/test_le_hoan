@@ -1,6 +1,6 @@
 window.HISTORY_APP_CONFIG = {
-  DEFAULT_CHARACTER_ID: "le-hoan",
   API_BASE_URL: "",
+  DEFAULT_CHARACTER_ID: "le-hoan",
   KIOSK_IDLE_MS: 180000,
   ENABLE_KIOSK_RESET: true
 };

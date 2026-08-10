@@ -1,401 +1,100 @@
 {
   "id": "le-hoan",
   "name": "Lê Hoàn",
-  "englishName": "Le Hoan",
-  "regnalName": "Lê Đại Hành",
-  "dynasty": "Tiền Lê",
-  "period": "Đại Cồ Việt cuối thế kỷ X – đầu thế kỷ XI",
+  "nameEn": "Le Hoan",
+  "period": "Đại Cồ Việt • cuối thế kỷ X – đầu thế kỷ XI",
+  "periodEn": "Dai Co Viet • late 10th – early 11th century",
   "years": "941–1005",
   "reign": "980–1005",
+  "dynasty": "Tiền Lê",
+  "dynastyEn": "Early Le dynasty",
   "capital": "Hoa Lư",
-  "stateName": "Đại Cồ Việt",
   "model": "./assets/Le_Hoan.glb",
   "narration": {
     "vi": "./assets/le_hoan_tieng_viet.mp3",
     "en": "./assets/le_hoan_tieng_anh.mp3"
   },
   "intro": {
-    "vi": "Khám phá một nhân vật trung tâm của Đại Cồ Việt cuối thế kỷ X qua mô hình 3D, hồ sơ sử liệu, giả định lịch sử và hoạt động nhập vai quyết sách.",
-    "en": "Explore a central figure of late 10th-century Đại Cồ Việt through a 3D model, evidence-based profile, counterfactual analysis and decision role-play."
+    "vi": "Khám phá Lê Hoàn qua mô hình 3D, hồ sơ sử liệu, tra cứu lịch sử, giả định lịch sử và nhập vai quyết sách.",
+    "en": "Explore Le Hoan through a 3D model, historical sources, inquiry, counterfactual analysis and decision role-play."
   },
   "dustSecret": {
-    "vi": "Một triều đại mới hình thành giữa khủng hoảng kế vị và nguy cơ chiến tranh. Hãy mở hồ sơ để kiểm tra các nguồn sử liệu.",
-    "en": "A new dynasty emerged amid a succession crisis and the threat of war. Open the file and examine the historical sources."
+    "vi": "Một triều đại mới hình thành giữa khủng hoảng kế vị và nguy cơ chiến tranh. Hãy tiếp tục khám phá hồ sơ Lê Hoàn.",
+    "en": "A new dynasty emerged amid a succession crisis and the threat of war. Continue exploring Le Hoan's historical profile."
   },
   "profileSections": [
     {
-      "id": "identity",
       "title": "Thân thế và xuất thân",
-      "body": "Lê Hoàn, thường được gọi theo miếu hiệu/tôn hiệu Lê Đại Hành trong các tài liệu hiện đại, sinh năm 941. Đại Việt sử ký toàn thư chép ông là người Ái Châu. Bảo tàng Lịch sử Quốc gia lưu ý rằng một số tài liệu khác ghi quê ở Trường Châu (Ninh Bình) hoặc Thanh Liêm (Hà Nam), vì vậy mẫu này không trình bày địa điểm sinh như một chi tiết hoàn toàn thống nhất. Theo chính sử được số hóa và bài tổng hợp của Bảo tàng, cha ông là Lê Mịch, mẹ là Đặng thị; phần chuyện mộng hoa sen được ghi như một motif truyền thuyết trong sử cũ, không được dùng như dữ kiện kiểm chứng hiện đại.",
-      "sourceIds": [
-        "dvsktt-le",
-        "btlsqg-biography"
-      ],
       "titleEn": "Background and origins",
-      "bodyEn": "Lê Hoàn, commonly referred to as Lê Đại Hành in modern publications, was born in 941. Đại Việt sử ký toàn thư records him as a native of Ái Châu. The Vietnam National Museum of History notes that other works give Trường Châu (Ninh Bình) or Thanh Liêm (Hà Nam) as his place of origin, so this prototype does not present his birthplace as fully settled. According to the digitized chronicle and the Museum's synthesis, his father was Lê Mịch and his mother was Lady Đặng. The old chronicle's lotus-dream story is treated here as a legendary motif, not as a modern verifiable fact."
+      "body": "Lê Hoàn sinh năm 941. Đại Việt sử ký toàn thư chép ông là người Ái Châu. Một số tài liệu hiện đại ghi khác nhau về địa điểm quê quán, vì vậy dự án ghi rõ đây là điểm cần đối chiếu nguồn thay vì khẳng định một địa danh duy nhất.",
+      "bodyEn": "Le Hoan was born in 941. The Complete Annals of Dai Viet records him as a native of Ai Chau. Modern accounts differ on his exact place of origin, so this prototype marks the issue as one requiring source comparison rather than presenting a single location as certain.",
+      "sources": ["S1", "S2"]
     },
     {
-      "id": "rise",
       "title": "Từ võ tướng nhà Đinh đến Thập đạo tướng quân",
-      "body": "Lê Hoàn tham gia lực lượng của Đinh Bộ Lĩnh trong quá trình dẹp loạn thế kỷ X. Sau khi nhà Đinh được thành lập, ông thăng tiến trong quân đội. Bảo tàng Lịch sử Quốc gia ghi năm 971 ông được phong Thập đạo tướng quân, một vị trí quân sự rất cao trong triều đình Đại Cồ Việt. Đại Việt sử ký toàn thư cũng xác nhận ông làm quan nhà Đinh đến chức Thập đạo tướng quân.",
-      "sourceIds": [
-        "dvsktt-le",
-        "btlsqg-biography"
-      ],
-      "titleEn": "From Đinh commander to Commander of the Ten Circuits",
-      "bodyEn": "Lê Hoàn joined the forces of Đinh Bộ Lĩnh during the process of suppressing regional warlords in the 10th century. After the Đinh dynasty was established, he rose through the military hierarchy. The Vietnam National Museum of History states that in 971 he was appointed Thập đạo tướng quân, one of the highest military positions in the court of Đại Cồ Việt. Đại Việt sử ký toàn thư also confirms that he served the Đinh court and attained this post."
+      "titleEn": "From Dinh general to Supreme Commander",
+      "body": "Lê Hoàn tham gia lực lượng của Đinh Bộ Lĩnh trong quá trình thống nhất đất nước. Sau khi nhà Đinh được thành lập, ông thăng tiến trong quân đội và được ghi nhận giữ chức Thập đạo tướng quân, một chức vụ quân sự rất cao.",
+      "bodyEn": "Le Hoan joined Dinh Bo Linh during the process of reunification. After the Dinh dynasty was established, he rose through the military ranks and is recorded as holding the position of Supreme Commander, one of the highest military offices.",
+      "sources": ["S1", "S2"]
     },
     {
-      "id": "crisis979",
-      "title": "Khủng hoảng năm 979 và việc lên ngôi năm 980",
-      "body": "Năm 979, Đinh Tiên Hoàng và Đinh Liễn bị sát hại; Đinh Toàn còn nhỏ được đưa lên ngôi. Trong bối cảnh triều đình bất ổn và nhà Tống chuẩn bị can thiệp quân sự, Lê Hoàn nắm vai trò chỉ huy và nhiếp chính. Theo các bài của Bảo tàng Lịch sử Quốc gia, quân sĩ và triều đình đã tôn ông lên ngôi năm 980. Ông lập nhà Tiền Lê, dùng niên hiệu Thiên Phúc, giữ quốc hiệu Đại Cồ Việt và tiếp tục đóng đô ở Hoa Lư. Đây là một biến chuyển quyền lực quan trọng, đồng thời là chủ đề có nhiều đánh giá sử học; vì thế giao diện tách phần 'sự kiện được nguồn ghi nhận' khỏi phần 'đánh giá'.",
-      "sourceIds": [
-        "btlsqg-biography",
-        "btlsqg-981",
-        "dvsktt-le"
-      ],
-      "titleEn": "The crisis of 979 and accession in 980",
-      "bodyEn": "In 979, Đinh Tiên Hoàng and Đinh Liễn were assassinated, and the young Đinh Toàn was placed on the throne. Amid court instability and preparations for Song military intervention, Lê Hoàn held a leading military and regency role. Articles from the Vietnam National Museum of History state that soldiers and court figures elevated him to the throne in 980. He founded the Early Lê dynasty, adopted the era name Thiên Phúc, retained the state name Đại Cồ Việt, and continued to rule from Hoa Lư. This was a major transfer of power and remains a subject of historical interpretation, so the interface separates source-supported events from later evaluations."
+      "title": "Khủng hoảng 979–980 và việc lên ngôi",
+      "titleEn": "The 979–980 crisis and accession",
+      "body": "Năm 979, Đinh Tiên Hoàng và Đinh Liễn bị sát hại, Đinh Toàn còn nhỏ lên ngôi. Trong bối cảnh triều đình bất ổn và nhà Tống chuẩn bị tiến quân, Lê Hoàn nắm quyền chỉ huy. Năm 980 ông được tôn lên ngôi, mở đầu nhà Tiền Lê.",
+      "bodyEn": "In 979, Dinh Tien Hoang and Dinh Lien were assassinated and the young Dinh Toan inherited the throne. Amid political instability and the threat of a Song invasion, Le Hoan held military command. In 980 he was elevated to the throne, beginning the Early Le dynasty.",
+      "sources": ["S2", "S3"]
     },
     {
-      "id": "song981",
       "title": "Kháng chiến chống Tống năm 981",
-      "body": "Năm 981, quân Tống tiến vào Đại Cồ Việt theo nhiều hướng. Lê Hoàn trực tiếp tổ chức kháng chiến. Bài chuyên đề của Bảo tàng Lịch sử Quốc gia mô tả giao tranh trên hướng Bạch Đằng và khu vực phía Bắc, cùng việc phá vỡ sự phối hợp của các đạo quân Tống; Hầu Nhân Bảo bị tiêu diệt trong chiến dịch. Kết quả là cuộc xâm lược thất bại và nền độc lập của Đại Cồ Việt được giữ vững. Các bản tóm thuật hiện đại có khác nhau ở một số chi tiết chiến thuật, nên dự án không biến một mô tả cụ thể về bãi cọc hay vị trí trận đánh thành kết luận duy nhất nếu chưa đối chiếu thêm.",
-      "sourceIds": [
-        "btlsqg-981",
-        "btlsqg-biography"
-      ],
       "titleEn": "Resistance against the Song in 981",
-      "bodyEn": "In 981, Song forces advanced into Đại Cồ Việt along several routes. Lê Hoàn directly organized the resistance. A thematic article by the Vietnam National Museum of History describes fighting around the Bạch Đằng direction and the northern region, together with the disruption of coordination among Song forces; Hầu Nhân Bảo was killed during the campaign. The invasion failed and Đại Cồ Việt maintained its independence. Modern summaries differ on some tactical details, so the project does not turn one specific account of stakes or battlefield locations into the only conclusion without further comparison."
+      "body": "Năm 981, quân Tống tiến vào Đại Cồ Việt. Lê Hoàn trực tiếp tổ chức kháng chiến và cuộc xâm lược thất bại. Các nguồn hiện đại có thể tóm thuật khác nhau ở một số chi tiết chiến thuật, vì vậy dự án không tự tạo hoặc tuyệt đối hóa các chi tiết chưa được đối chiếu.",
+      "bodyEn": "In 981, Song forces invaded Dai Co Viet. Le Hoan directly organized the resistance and the invasion failed. Modern summaries differ on some tactical details, so this project avoids inventing or overstating details that have not been cross-checked.",
+      "sources": ["S2", "S3"]
     },
     {
-      "id": "champa982",
-      "title": "Quan hệ với Champa và chiến dịch năm 982",
-      "body": "Bảo tàng Lịch sử Quốc gia ghi rằng năm 982, sau khi sứ giả Đại Cồ Việt bị phía Champa giữ lại, Lê Hoàn tổ chức một chiến dịch quân sự về phía nam. Trong mẫu giáo dục này, sự kiện được trình bày như một phần của quan hệ chính trị – quân sự khu vực cuối thế kỷ X; không dùng mô phỏng để suy ra các con số thương vong hay kết quả định lượng mà nguồn nền không cung cấp.",
-      "sourceIds": [
-        "btlsqg-biography"
-      ],
-      "titleEn": "Relations with Champa and the campaign of 982",
-      "bodyEn": "The Vietnam National Museum of History records that in 982, after envoys from Đại Cồ Việt were detained by Champa, Lê Hoàn organized a military campaign to the south. In this educational prototype, the event is presented as part of the regional political and military relations of the late 10th century. The simulation does not invent casualty figures or quantitative outcomes that are not supplied by the curated sources."
+      "title": "Xây dựng đất nước",
+      "titleEn": "State building",
+      "body": "Trong thời gian trị vì, Lê Hoàn được ghi nhận với các hoạt động củng cố nhà nước, khuyến khích nông nghiệp, tổ chức lễ cày tịch điền, đào kênh và phát triển giao thông thủy. Các nội dung định lượng không có nguồn sẽ không được AI tự tạo.",
+      "bodyEn": "During his reign, Le Hoan is credited with strengthening the state, encouraging agriculture, holding royal ploughing ceremonies, digging canals and improving waterways. The AI is instructed not to invent numerical claims that are not supported by the curated source base.",
+      "sources": ["S2", "S4"]
     },
     {
-      "id": "governance",
-      "title": "Xây dựng quốc gia, nông nghiệp và giao thông",
-      "body": "Trong thời gian trị vì, Lê Hoàn được các nguồn hiện đại ghi nhận với các hoạt động củng cố nhà nước, xây dựng ở Hoa Lư, khuyến khích nông nghiệp qua lễ cày tịch điền, đào kênh, đắp đê và mở đường. Bảo tàng Lịch sử Quốc gia và Bộ Văn hóa, Thể thao và Du lịch đều nhắc đến vai trò của ông trong việc thúc đẩy sản xuất và các công trình giao thông – thủy lợi. Mẫu dự án chỉ nêu những hoạt động được các nguồn này hỗ trợ, không tự gán quy mô hoặc hiệu quả kinh tế bằng số liệu AI.",
-      "sourceIds": [
-        "btlsqg-biography",
-        "bvhttdl-temple"
-      ],
-      "titleEn": "State-building, agriculture, and transport",
-      "bodyEn": "During his reign, modern sources credit Lê Hoàn with activities to consolidate the state, undertake construction at Hoa Lư, encourage agriculture through the royal ploughing ceremony, and promote canals, dikes, and roads. The Vietnam National Museum of History and the Ministry of Culture, Sports and Tourism both mention his role in production and transport or irrigation works. This prototype only states activities supported by those sources and does not assign AI-generated figures to their scale or economic effect."
-    },
-    {
-      "id": "diplomacy",
-      "title": "Ngoại giao với nhà Tống",
-      "body": "Sau chiến tranh, triều Tiền Lê tiếp tục duy trì quan hệ ngoại giao với nhà Tống. Bảo tàng Lịch sử Quốc gia mô tả đường lối của Lê Hoàn là mềm dẻo nhưng cương quyết, vừa duy trì bang giao vừa bảo vệ quyền tự chủ. Khi học sinh hỏi về chi tiết nghi lễ hoặc lời đối đáp của sứ thần, AI phải đánh dấu nếu chi tiết đó chưa có trong dữ liệu nền của dự án.",
-      "sourceIds": [
-        "btlsqg-biography",
-        "btlsqg-981"
-      ],
-      "titleEn": "Diplomacy with the Song dynasty",
-      "bodyEn": "After the war, the Early Lê court continued diplomatic relations with the Song dynasty. The Vietnam National Museum of History characterizes Lê Hoàn's policy as flexible but firm, maintaining relations while safeguarding autonomy. When students ask about specific rituals or reported exchanges with envoys, the AI must mark details that are not present in the project's curated evidence as requiring verification."
-    },
-    {
-      "id": "end",
-      "title": "Cuối đời, niên hiệu và vấn đề kế vị",
-      "body": "Bảo tàng Lịch sử Quốc gia ghi Lê Hoàn mất giữa năm 1005, sau 24 năm ở ngôi, với các niên hiệu Thiên Phúc, Hưng Thống và Ứng Thiên. Đại Việt sử ký toàn thư cũng ghi ông ở ngôi 24 năm và phê bình việc không sớm xác lập người kế vị, dẫn tới tranh chấp sau khi ông mất. Dự án giữ riêng nhận xét của sử gia với dữ kiện niên đại để học sinh thấy được sự khác nhau giữa 'ghi chép sự kiện' và 'lời bình sử'.",
-      "sourceIds": [
-        "btlsqg-biography",
-        "dvsktt-le"
-      ],
-      "titleEn": "Final years, era names, and succession",
-      "bodyEn": "The Vietnam National Museum of History records that Lê Hoàn died in 1005 after 24 years on the throne and used the era names Thiên Phúc, Hưng Thống, and Ứng Thiên. Đại Việt sử ký toàn thư also records a 24-year reign and criticizes his failure to establish a successor early, linking this to the struggle that followed his death. The project keeps the chronicler's judgment separate from chronological facts so learners can distinguish an event record from historical commentary."
-    },
-    {
-      "id": "heritage",
-      "title": "Di sản và tưởng niệm hiện nay",
-      "body": "Đền thờ Lê Hoàn tại Xuân Lập, Thọ Xuân, Thanh Hóa là một địa điểm tưởng niệm quan trọng. Bộ Văn hóa, Thể thao và Du lịch cho biết đền được công nhận Di tích lịch sử quốc gia đặc biệt năm 2018; Lễ hội đền thờ Lê Hoàn được ghi danh Di sản văn hóa phi vật thể quốc gia năm 2023. Đây là dữ liệu về đời sống di sản hiện đại, không phải bằng chứng trực tiếp cho mọi chi tiết về cuộc đời thế kỷ X của Lê Hoàn.",
-      "sourceIds": [
-        "bvhttdl-temple"
-      ],
-      "titleEn": "Legacy and commemoration today",
-      "bodyEn": "The temple dedicated to Lê Hoàn in Xuân Lập, Thọ Xuân, Thanh Hóa is an important place of commemoration. The Ministry of Culture, Sports and Tourism states that the temple was recognized as a Special National Historical Site in 2018 and that the Lê Hoàn Temple Festival was listed as National Intangible Cultural Heritage in 2023. This is evidence about modern heritage life, not direct proof for every detail of Lê Hoàn's 10th-century biography."
+      "title": "Di sản và tưởng niệm",
+      "titleEn": "Legacy and commemoration",
+      "body": "Đền thờ Lê Hoàn tại Xuân Lập, Thọ Xuân, Thanh Hóa là một địa điểm tưởng niệm quan trọng. Thông tin về di tích và lễ hội hiện đại được tách riêng khỏi dữ liệu lịch sử thế kỷ X để tránh nhầm lẫn giữa di sản hiện nay và sử liệu cổ.",
+      "bodyEn": "The Le Hoan temple in Xuan Lap, Tho Xuan, Thanh Hoa is an important place of commemoration. Modern heritage information is kept separate from 10th-century historical evidence to avoid confusing present-day heritage records with medieval sources.",
+      "sources": ["S4"]
     }
   ],
   "timeline": [
-    {
-      "year": "941",
-      "text": "Sinh năm Tân Sửu; Đại Việt sử ký toàn thư chép là người Ái Châu.",
-      "sourceIds": [
-        "dvsktt-le"
-      ],
-      "textEn": "Born in 941; Đại Việt sử ký toàn thư records him as a native of Ái Châu."
-    },
-    {
-      "year": "971",
-      "text": "Được ghi nhận giữ chức Thập đạo tướng quân dưới triều Đinh.",
-      "sourceIds": [
-        "btlsqg-biography",
-        "dvsktt-le"
-      ],
-      "textEn": "Recorded as holding the post of Thập đạo tướng quân under the Đinh dynasty."
-    },
-    {
-      "year": "979",
-      "text": "Đinh Tiên Hoàng và Đinh Liễn bị sát hại; triều đình rơi vào khủng hoảng kế vị.",
-      "sourceIds": [
-        "btlsqg-biography"
-      ],
-      "textEn": "Đinh Tiên Hoàng and Đinh Liễn were assassinated; the court entered a succession crisis."
-    },
-    {
-      "year": "980",
-      "text": "Lê Hoàn lên ngôi, mở đầu nhà Tiền Lê; niên hiệu Thiên Phúc.",
-      "sourceIds": [
-        "btlsqg-biography",
-        "btlsqg-981"
-      ],
-      "textEn": "Lê Hoàn took the throne, founding the Early Lê dynasty and using the era name Thiên Phúc."
-    },
-    {
-      "year": "981",
-      "text": "Lãnh đạo kháng chiến chống quân Tống; cuộc xâm lược thất bại.",
-      "sourceIds": [
-        "btlsqg-981"
-      ],
-      "textEn": "Led resistance against the Song invasion; the invasion failed."
-    },
-    {
-      "year": "982",
-      "text": "Tổ chức chiến dịch quân sự với Champa sau vụ sứ giả bị giữ.",
-      "sourceIds": [
-        "btlsqg-biography"
-      ],
-      "textEn": "Organized a military campaign against Champa after Đại Cồ Việt envoys were detained."
-    },
-    {
-      "year": "980–1005",
-      "text": "Triều Tiền Lê củng cố quốc gia, phát triển nông nghiệp, giao thông – thủy lợi và bang giao.",
-      "sourceIds": [
-        "btlsqg-biography",
-        "bvhttdl-temple"
-      ],
-      "textEn": "The Early Lê state consolidated government and promoted agriculture, transport, irrigation, and diplomacy."
-    },
-    {
-      "year": "1005",
-      "text": "Qua đời sau 24 năm ở ngôi theo Bảo tàng Lịch sử Quốc gia.",
-      "sourceIds": [
-        "btlsqg-biography"
-      ],
-      "textEn": "Died in 1005 after 24 years on the throne according to the Vietnam National Museum of History."
-    }
+    {"year":"941","vi":"Lê Hoàn sinh năm Tân Sửu.","en":"Le Hoan was born in 941.","sources":["S1"]},
+    {"year":"971","vi":"Được ghi nhận giữ chức Thập đạo tướng quân dưới triều Đinh.","en":"Recorded as holding the office of Supreme Commander under the Dinh dynasty.","sources":["S1","S2"]},
+    {"year":"979","vi":"Khủng hoảng kế vị sau cái chết của Đinh Tiên Hoàng và Đinh Liễn.","en":"A succession crisis followed the deaths of Dinh Tien Hoang and Dinh Lien.","sources":["S2"]},
+    {"year":"980","vi":"Lê Hoàn lên ngôi, mở đầu nhà Tiền Lê.","en":"Le Hoan ascended the throne, beginning the Early Le dynasty.","sources":["S2","S3"]},
+    {"year":"981","vi":"Lãnh đạo kháng chiến chống quân Tống.","en":"Led resistance against the Song invasion.","sources":["S3"]},
+    {"year":"982","vi":"Tổ chức chiến dịch quân sự với Champa.","en":"Led a military campaign involving Champa.","sources":["S2"]},
+    {"year":"1005","vi":"Lê Hoàn qua đời sau thời gian trị vì kéo dài từ năm 980.","en":"Le Hoan died after a reign that had begun in 980.","sources":["S2"]}
   ],
   "facts": [
-    {
-      "id": "f1",
-      "text": "Lê Hoàn sinh năm 941; Đại Việt sử ký toàn thư chép ông là người Ái Châu.",
-      "sourceIds": [
-        "dvsktt-le"
-      ],
-      "textEn": "Lê Hoàn was born in 941; Đại Việt sử ký toàn thư records him as a native of Ái Châu."
-    },
-    {
-      "id": "f2",
-      "text": "Một số tài liệu hiện đại ghi khác nhau về quê quán của Lê Hoàn; Bảo tàng Lịch sử Quốc gia nêu Ái Châu, Trường Châu hoặc Thanh Liêm tùy sách.",
-      "sourceIds": [
-        "btlsqg-biography"
-      ],
-      "textEn": "Modern publications differ on Lê Hoàn's place of origin; the Vietnam National Museum of History notes Ái Châu, Trường Châu, or Thanh Liêm depending on the work."
-    },
-    {
-      "id": "f3",
-      "text": "Ông làm quan nhà Đinh và giữ chức Thập đạo tướng quân.",
-      "sourceIds": [
-        "dvsktt-le",
-        "btlsqg-biography"
-      ],
-      "textEn": "He served the Đinh dynasty and held the post of Thập đạo tướng quân."
-    },
-    {
-      "id": "f4",
-      "text": "Năm 979, Đinh Tiên Hoàng và Đinh Liễn bị sát hại; Đinh Toàn còn nhỏ được đưa lên ngôi.",
-      "sourceIds": [
-        "btlsqg-biography"
-      ],
-      "textEn": "In 979, Đinh Tiên Hoàng and Đinh Liễn were assassinated, and the young Đinh Toàn was placed on the throne."
-    },
-    {
-      "id": "f5",
-      "text": "Năm 980, Lê Hoàn lên ngôi, lập nhà Tiền Lê, giữ quốc hiệu Đại Cồ Việt và đóng đô ở Hoa Lư.",
-      "sourceIds": [
-        "btlsqg-biography",
-        "btlsqg-981"
-      ],
-      "textEn": "In 980, Lê Hoàn took the throne, founded the Early Lê dynasty, retained the state name Đại Cồ Việt, and ruled from Hoa Lư."
-    },
-    {
-      "id": "f6",
-      "text": "Năm 981, Lê Hoàn lãnh đạo kháng chiến chống quân Tống và cuộc xâm lược thất bại.",
-      "sourceIds": [
-        "btlsqg-981"
-      ],
-      "textEn": "In 981, Lê Hoàn led resistance against the Song invasion, which failed."
-    },
-    {
-      "id": "f7",
-      "text": "Các tóm thuật hiện đại không hoàn toàn đồng nhất về một số chi tiết chiến thuật của chiến dịch năm 981; cần tránh trình bày một mô tả chiến thuật đơn lẻ như kết luận duy nhất.",
-      "sourceIds": [
-        "btlsqg-981",
-        "btlsqg-biography"
-      ],
-      "textEn": "Modern summaries are not fully consistent on some tactical details of the 981 campaign; one tactical narrative should not be presented as the only settled account."
-    },
-    {
-      "id": "f8",
-      "text": "Năm 982, Lê Hoàn tổ chức chiến dịch quân sự với Champa sau khi sứ giả Đại Cồ Việt bị giữ.",
-      "sourceIds": [
-        "btlsqg-biography"
-      ],
-      "textEn": "In 982, Lê Hoàn organized a military campaign against Champa after Đại Cồ Việt envoys were detained."
-    },
-    {
-      "id": "f9",
-      "text": "Trong thời gian trị vì, ông được ghi nhận với các hoạt động khuyến nông, lễ cày tịch điền, đào kênh, đắp đê và mở đường.",
-      "sourceIds": [
-        "btlsqg-biography",
-        "bvhttdl-temple"
-      ],
-      "textEn": "During his reign, he is credited with encouraging agriculture, the royal ploughing ceremony, canals, dikes, and roads."
-    },
-    {
-      "id": "f10",
-      "text": "Triều Tiền Lê duy trì bang giao với nhà Tống sau chiến tranh trong khi bảo vệ quyền tự chủ.",
-      "sourceIds": [
-        "btlsqg-biography",
-        "btlsqg-981"
-      ],
-      "textEn": "The Early Lê court maintained diplomatic relations with the Song after the war while protecting political autonomy."
-    },
-    {
-      "id": "f11",
-      "text": "Bảo tàng Lịch sử Quốc gia ghi Lê Hoàn mất giữa năm 1005, ở ngôi 24 năm.",
-      "sourceIds": [
-        "btlsqg-biography"
-      ],
-      "textEn": "The Vietnam National Museum of History records that Lê Hoàn died in 1005 after 24 years on the throne."
-    },
-    {
-      "id": "f12",
-      "text": "Đại Việt sử ký toàn thư có lời bình phê phán việc không sớm xác lập người kế vị, dẫn đến tranh chấp sau khi ông mất.",
-      "sourceIds": [
-        "dvsktt-le"
-      ],
-      "textEn": "Đại Việt sử ký toàn thư contains a critical judgment that failing to establish a successor early contributed to disputes after his death."
-    },
-    {
-      "id": "f13",
-      "text": "Đền thờ Lê Hoàn tại Xuân Lập, Thọ Xuân được công nhận Di tích lịch sử quốc gia đặc biệt năm 2018; lễ hội đền thờ được ghi danh Di sản văn hóa phi vật thể quốc gia năm 2023.",
-      "sourceIds": [
-        "bvhttdl-temple"
-      ],
-      "textEn": "The Lê Hoàn temple in Xuân Lập, Thọ Xuân was recognized as a Special National Historical Site in 2018; its festival was listed as National Intangible Cultural Heritage in 2023."
-    }
+    {"id":"F1","vi":"Lê Hoàn sinh năm 941.","en":"Le Hoan was born in 941.","sources":["S1"]},
+    {"id":"F2","vi":"Ông giữ chức Thập đạo tướng quân dưới triều Đinh.","en":"He held the office of Supreme Commander under the Dinh dynasty.","sources":["S1","S2"]},
+    {"id":"F3","vi":"Ông lên ngôi năm 980 và mở đầu nhà Tiền Lê.","en":"He ascended the throne in 980 and founded the Early Le dynasty.","sources":["S2","S3"]},
+    {"id":"F4","vi":"Năm 981, Đại Cồ Việt đánh bại cuộc xâm lược của quân Tống.","en":"In 981, Dai Co Viet defeated the Song invasion.","sources":["S3"]},
+    {"id":"F5","vi":"Các nguồn hiện đại không hoàn toàn thống nhất về một số chi tiết chiến thuật của chiến dịch 981.","en":"Modern sources do not fully agree on some tactical details of the 981 campaign.","sources":["S2","S3"]},
+    {"id":"F6","vi":"Lê Hoàn được ghi nhận với các hoạt động khuyến nông, thủy lợi và giao thông.","en":"Le Hoan is credited with agricultural, hydraulic and transport initiatives.","sources":["S2","S4"]}
   ],
   "sources": [
-    {
-      "id": "dvsktt-le",
-      "title": "Đại Việt sử ký toàn thư – Kỷ nhà Lê, Đại Hành Hoàng đế",
-      "organization": "Hội Bảo tồn Di sản Chữ Nôm / bản số hóa từ tư liệu Hán Nôm",
-      "type": "Chính sử được số hóa",
-      "url": "https://www.nomfoundation.org/nom-project/history-of-greater-vietnam/Fulltext/26-Ky-nha-Le?uiLang=vn",
-      "note": "Nguồn gốc quan trọng để kiểm tra cách chính sử ghi thân thế, chức vụ, thời gian ở ngôi và lời bình của sử gia. Cần đọc với ý thức đây là văn bản sử học tiền hiện đại.",
-      "titleEn": "Đại Việt sử ký toàn thư — Annals of the Lê, Emperor Đại Hành",
-      "organizationEn": "Vietnamese Nôm Preservation Foundation / digitized Hán-Nôm materials",
-      "typeEn": "Digitized official chronicle",
-      "noteEn": "An important primary historiographical source for checking how the official chronicle records Lê Hoàn's background, offices, length of reign, and the chronicler's judgments. It should be read with awareness that this is a premodern historical text."
-    },
-    {
-      "id": "btlsqg-biography",
-      "title": "Lê Đại Hành (941–1005), vị vua đầu tiên của nhà Tiền Lê",
-      "organization": "Bảo tàng Lịch sử Quốc gia",
-      "type": "Tổng hợp của cơ quan bảo tàng quốc gia",
-      "url": "https://baotanglichsu.vn/vi/Articles/3098/14759/le-djai-hanh-941-1005-vi-vua-djau-tien-cua-nha-tien-le.html",
-      "note": "Nguồn tổng hợp hiện đại dùng cho tiểu sử, quá trình lên ngôi, hoạt động đối nội, đối ngoại và niên hiệu.",
-      "titleEn": "Lê Đại Hành (941–1005), the first ruler of the Early Lê dynasty",
-      "organizationEn": "Vietnam National Museum of History",
-      "typeEn": "Modern synthesis by a national museum",
-      "noteEn": "A modern synthesis used for biography, accession, domestic and foreign policies, and era names."
-    },
-    {
-      "id": "btlsqg-981",
-      "title": "Mùa Xuân năm 981 – Kháng chiến chống quân Tống lần thứ nhất thắng lợi",
-      "organization": "Bảo tàng Lịch sử Quốc gia",
-      "type": "Chuyên đề lịch sử",
-      "url": "https://baotanglichsu.vn/vi/Articles/3097/15910/mua-xuan-nam-981-khang-chien-chong-quan-tong-lan-thu-nhat-thang-loi.html",
-      "note": "Dùng để kiểm tra bối cảnh và diễn biến khái quát của chiến dịch chống Tống năm 981.",
-      "titleEn": "Spring 981 — Victory in the first resistance against the Song",
-      "organizationEn": "Vietnam National Museum of History",
-      "typeEn": "Historical thematic article",
-      "noteEn": "Used to check the context and broad course of the 981 campaign against the Song."
-    },
-    {
-      "id": "bvhttdl-temple",
-      "title": "Phát huy giá trị lịch sử, văn hóa, kiến trúc nghệ thuật độc đáo Đền thờ Lê Hoàn",
-      "organization": "Bộ Văn hóa, Thể thao và Du lịch",
-      "type": "Nguồn cơ quan nhà nước về di sản",
-      "url": "https://bvhttdl.gov.vn/phat-huy-gia-tri-lich-su-van-hoa-kien-truc-nghe-thuat-doc-dao-den-tho-le-hoan-20230428154547278.htm",
-      "note": "Dùng cho thông tin di sản hiện đại: đền thờ, công nhận di tích và lễ hội; không dùng thay thế chính sử cho mọi chi tiết thế kỷ X.",
-      "titleEn": "Promoting the historical, cultural, architectural, and artistic values of the Lê Hoàn Temple",
-      "organizationEn": "Ministry of Culture, Sports and Tourism of Vietnam",
-      "typeEn": "Government source on cultural heritage",
-      "noteEn": "Used for modern heritage information about the temple, heritage recognition, and festival; not used as a substitute for official chronicles on every 10th-century detail."
-    }
+    {"id":"S1","title":"Đại Việt sử ký toàn thư – Kỷ nhà Lê","titleEn":"Complete Annals of Dai Viet – Early Le chronicle","org":"Hội Bảo tồn Di sản Chữ Nôm / bản số hóa","orgEn":"Vietnamese Nôm Preservation Foundation / digital edition","type":"Chính sử được số hóa","typeEn":"Digitized historical chronicle","url":"https://www.nomfoundation.org/nom-project/history-of-greater-vietnam/Fulltext/26-Ky-nha-Le?uiLang=vn"},
+    {"id":"S2","title":"Lê Đại Hành (941–1005), vị vua đầu tiên của nhà Tiền Lê","titleEn":"Le Dai Hanh (941–1005), first ruler of the Early Le dynasty","org":"Bảo tàng Lịch sử Quốc gia","orgEn":"Vietnam National Museum of History","type":"Tổng hợp lịch sử","typeEn":"Historical overview","url":"https://baotanglichsu.vn/vi/Articles/3098/14759/le-djai-hanh-941-1005-vi-vua-djau-tien-cua-nha-tien-le.html"},
+    {"id":"S3","title":"Mùa Xuân năm 981 – Kháng chiến chống quân Tống lần thứ nhất thắng lợi","titleEn":"Spring 981 – Victory against the first Song invasion","org":"Bảo tàng Lịch sử Quốc gia","orgEn":"Vietnam National Museum of History","type":"Chuyên đề lịch sử","typeEn":"Historical thematic article","url":"https://baotanglichsu.vn/vi/Articles/3097/15910/mua-xuan-nam-981-khang-chien-chong-quan-tong-lan-thu-nhat-thang-loi.html"},
+    {"id":"S4","title":"Phát huy giá trị lịch sử, văn hóa, kiến trúc nghệ thuật độc đáo Đền thờ Lê Hoàn","titleEn":"Promoting the historical and cultural value of Le Hoan Temple","org":"Bộ Văn hóa, Thể thao và Du lịch","orgEn":"Ministry of Culture, Sports and Tourism","type":"Nguồn cơ quan nhà nước về di sản","typeEn":"Government heritage source","url":"https://bvhttdl.gov.vn/phat-huy-gia-tri-lich-su-van-hoa-kien-truc-nghe-thuat-doc-dao-den-tho-le-hoan-20230428154547278.htm"}
   ],
-  "qaSuggestions": [
-    "Vì sao Lê Hoàn lên ngôi năm 980?",
-    "Chiến thắng chống Tống năm 981 có ý nghĩa gì?",
-    "Lê Hoàn đã làm gì để khuyến khích nông nghiệp?",
-    "Nguồn nào ghi quê quán của Lê Hoàn và có điểm gì chưa thống nhất?"
-  ],
-  "whatIfSuggestions": [
-    "Nếu triều Đinh ổn định được việc kế vị năm 979 thì sao?",
-    "Nếu Đại Cồ Việt không chặn được cuộc tiến công của quân Tống năm 981 thì sao?",
-    "Nếu sau chiến tranh triều Tiền Lê chọn đối đầu ngoại giao kéo dài với nhà Tống thì sao?"
-  ],
-  "roleplay": {
-    "title": "Quyết sách 980–981",
-    "context": "Người chơi vào vai Lê Hoàn trong bối cảnh triều đình khủng hoảng và nguy cơ nhà Tống tiến quân. Hoạt động là mô phỏng giáo dục, không tái hiện nguyên xi một cuộc họp lịch sử cụ thể.",
-    "dimensions": [
-      "Quân sự",
-      "Ngoại giao",
-      "Lòng dân",
-      "Hậu cần"
-    ],
-    "maxTurns": 6,
-    "titleEn": "Decision-making, 980–981",
-    "contextEn": "You take the role of Lê Hoàn during a court crisis and the growing threat of a Song invasion. This is an educational simulation, not a verbatim reconstruction of a specific historical meeting.",
-    "dimensionsEn": [
-      "Military",
-      "Diplomacy",
-      "Public support",
-      "Logistics"
-    ]
+  "qaSuggestions": {
+    "vi": ["Vì sao Lê Hoàn lên ngôi năm 980?", "Chiến thắng năm 981 có ý nghĩa gì?", "Lê Hoàn đã làm gì để khuyến khích nông nghiệp?"],
+    "en": ["Why did Le Hoan take the throne in 980?", "Why was the victory of 981 important?", "What did Le Hoan do to encourage agriculture?"]
   },
-  "regnalNameEn": "Lê Đại Hành",
-  "dynastyEn": "Early Lê dynasty",
-  "periodEn": "Đại Cồ Việt from the late 10th to early 11th century",
-  "capitalEn": "Hoa Lư",
-  "stateNameEn": "Đại Cồ Việt",
-  "qaSuggestionsEn": [
-    "Why did Lê Hoàn take the throne in 980?",
-    "What was the significance of the victory against the Song in 981?",
-    "What did Lê Hoàn do to encourage agriculture?",
-    "Which sources discuss Lê Hoàn's place of origin, and what remains disputed?"
-  ],
-  "whatIfSuggestionsEn": [
-    "What if the Đinh court had stabilized the succession in 979?",
-    "What if Đại Cồ Việt had failed to stop the Song invasion in 981?",
-    "What if the Early Lê court had chosen prolonged diplomatic confrontation with the Song after the war?"
-  ]
+  "whatifSuggestions": {
+    "vi": ["Nếu triều Đinh ổn định được việc kế vị năm 979 thì sao?", "Nếu Đại Cồ Việt thất bại trước quân Tống năm 981 thì sao?"],
+    "en": ["What if the Dinh succession had remained stable in 979?", "What if Dai Co Viet had lost to the Song in 981?"]
+  }
 }

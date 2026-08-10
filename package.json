@@ -1,0 +1,1 @@
+{"name":"le-hoan-history-museum","version":"4.0.0","private":true,"main":"server.js","scripts":{"start":"node server.js"},"engines":{"node":">=22"},"dependencies":{"cors":"^2.8.5","dotenv":"^16.4.7","express":"^4.21.2","openai":"^7.4.0"}}
