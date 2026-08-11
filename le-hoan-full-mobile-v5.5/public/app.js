@@ -1,0 +1,290 @@
+(()=>{
+const CFG=window.HISTORY_APP_CONFIG||{}; const API=CFG.API_BASE_URL||""; let profile=null;
+const $=id=>document.getElementById(id); const qs=(s,r=document)=>r.querySelector(s); const qsa=(s,r=document)=>[...r.querySelectorAll(s)];
+const state={lang:'vi',name:'Người học',audio:true,sessionId:crypto.randomUUID(),sessionStart:0,mainStarted:false,narrationShouldResume:false,narrationPrimed:false,currentTTS:null,currentTTSUrl:null,currentUtterance:null,ttsAbortController:null,aiAbortController:null,aiRequestId:0,qaCount:0,whatifCount:0,roleCount:0,questions:[],journey:{artifact:false,profile:false,qa:false,whatif:false,role:false},roleHistory:[],roleTurn:1,dustDone:false,brush:false,idleTimer:null,audioUnlocked:false,dustStream:null,dustAudioContext:null};
+const UI={vi:{start:'Bắt đầu khám phá',name:'Tên người khám phá',namePh:'Nhập tên của bạn…',modelLoading:'Đang tải hiện vật.',modelError:'Không tải được mô hình 3D.',retry:'Tải lại mô hình',connected:'● Đã kết nối',offline:'● Mất kết nối',profile:'Hồ sơ',profileSub:'Thông tin & nguồn',tools:'CÔNG CỤ HỌC TẬP',qa:'Tra cứu sử liệu',qaSub:'Đặt câu hỏi lịch sử',whatif:'Giả định lịch sử',whatifSub:'Phân tích “nếu như”',role:'Nhập vai quyết sách',roleSub:'Chọn phương án xử lý',dustEyebrow:'KHÁM PHÁ HIỆN VẬT',dustTitle:'Thổi vào micro hoặc quét lớp bụi thời gian',dustSub:'Micro chỉ nhận cường độ hơi thổi. Không phát âm thanh quét hoặc thổi.',brush:'Dùng chổi',skip:'Bỏ qua',profileEyebrow:'HỒ SƠ NHÂN VẬT',timeline:'Dòng thời gian',info:'Thông tin đầy đủ',qaHelp:'Câu trả lời phải chỉ ra dữ kiện nền, nguồn hỗ trợ và phần cần kiểm chứng.',qaPlaceholder:'Ví dụ: Vì sao Lê Hoàn lên ngôi năm 980?',qaSend:'Tra cứu',qaEmpty:'Chọn một câu gợi ý hoặc đặt câu hỏi của bạn.',whatifHelp:'Mô phỏng để học quan hệ nguyên nhân–hậu quả, không phải dự đoán lịch sử.',whatifPlaceholder:'Nếu một điều kiện lịch sử thay đổi thì…',whatifSend:'Phân tích',whatifEmpty:'Mỗi lần chỉ thay đổi một điều kiện để phân tích rõ hơn.',roleHelp:'Cân nhắc quân sự, ngoại giao, lòng dân và hậu cần.',roleStart:'Bắt đầu tình huống',roleExport:'Xuất phiếu học tập',simulation:'⚑ Mô phỏng giáo dục',sources:'Nguồn sử liệu',sourcesHelp:'Mỗi nguồn có vai trò khác nhau; không dùng một nguồn hiện đại thay cho mọi chi tiết cổ.',guide:'Cách khám phá',journey:'Tiến trình khám phá',summary:'Hành trình khám phá Lê Hoàn',summaryBtn:'Xem tổng kết hành trình',summarySub:'Thời gian • hoạt động • tiến trình',pdf:'Xuất PDF',newSession:'Phiên mới',processing:'Đang xử lý…',error:'Không thể kết nối AI. Hãy thử lại.',mic:'🎙 Mic',micStop:'⏹ Dừng',done:'Hoàn tất.',source:'Nguồn',openSource:'Mở nguồn gốc ↗'},en:{start:'Start exploring',name:'Explorer name',namePh:'Enter your name…',modelLoading:'Loading 3D exhibit.',modelError:'Could not load the 3D model.',retry:'Reload model',connected:'● Connected',offline:'● Offline',profile:'Profile',profileSub:'Information & sources',tools:'LEARNING TOOLS',qa:'Historical inquiry',qaSub:'Ask a history question',whatif:'Counterfactual',whatifSub:'Analyze a “what if”',role:'Decision role-play',roleSub:'Choose a course of action',dustEyebrow:'DISCOVER THE EXHIBIT',dustTitle:'Blow into the microphone or sweep away the dust of time',dustSub:'The microphone only detects airflow intensity. No sweeping or blowing sound is played.',brush:'Use brush',skip:'Skip',profileEyebrow:'HISTORICAL PROFILE',timeline:'Timeline',info:'Full profile',qaHelp:'Answers should identify evidence, supporting sources and points requiring verification.',qaPlaceholder:'Example: Why did Le Hoan take the throne in 980?',qaSend:'Inquiry',qaEmpty:'Choose a suggested question or enter your own.',whatifHelp:'A learning simulation for cause and effect, not a prediction of history.',whatifPlaceholder:'What if one historical condition changed…',whatifSend:'Analyze',whatifEmpty:'Change one condition at a time for a clearer analysis.',roleHelp:'Consider military, diplomacy, public support and logistics.',roleStart:'Start scenario',roleExport:'Export worksheet',simulation:'⚑ Educational simulation',sources:'Historical sources',sourcesHelp:'Different sources serve different purposes; a modern source does not replace medieval evidence for every detail.',guide:'How to explore',journey:'Exploration progress',summary:'Le Hoan exploration summary',summaryBtn:'View journey summary',summarySub:'Time • activities • progress',pdf:'Export PDF',newSession:'New session',processing:'Processing…',error:'Could not connect to AI. Please try again.',mic:'🎙 Mic',micStop:'⏹ Stop',done:'Complete.',source:'Source',openSource:'Open original source ↗'}};
+const t=k=>UI[state.lang][k]||k;
+function esc(v=''){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function playClick(){if(!state.audio)return;try{const C=window.AudioContext||window.webkitAudioContext;state.ctx||=new C();const c=state.ctx;if(c.state==='suspended')c.resume();const o=c.createOscillator(),g=c.createGain(),n=c.currentTime;o.type='triangle';o.frequency.setValueAtTime(300,n);o.frequency.exponentialRampToValueAtTime(170,n+.05);g.gain.setValueAtTime(.06,n);g.gain.exponentialRampToValueAtTime(.001,n+.065);o.connect(g).connect(c.destination);o.start(n);o.stop(n+.07)}catch{}}
+document.addEventListener('click',e=>{if(e.target.closest('button'))playClick()});
+async function loadProfile(){const id=new URLSearchParams(location.search).get('character')||CFG.DEFAULT_CHARACTER_ID||'le-hoan';profile=await fetch(`./data/${id}.json`,{cache:'no-store'}).then(r=>r.json());$('historyModel').src=profile.model;$('narrationVi').src=profile.narration.vi;$('narrationEn').src=profile.narration.en;$('narrationVi').volume=1;$('narrationEn').volume=1;renderAll();}
+function renderAll(){document.documentElement.lang=state.lang; const en=state.lang==='en'; $('introName').textContent=en?profile.nameEn:profile.name;$('introText').textContent=profile.intro[state.lang];$('introMeta').innerHTML=`<span>${esc(profile.years)}</span><span>${esc(en?profile.dynastyEn:profile.dynasty)}</span><span>${esc(profile.capital)}</span>`;$('characterName').textContent=en?profile.nameEn:profile.name;$('periodText').textContent=en?profile.periodEn:profile.period;$('nameLabel').textContent=t('name');$('playerName').placeholder=t('namePh');$('startBtn').textContent=t('start');$('introLangBtn').textContent=en?'Tiếng Việt':'English';$('langBtn').textContent=en?'VI':'EN';$('navProfileTitle').textContent=t('profile');$('navProfileSub').textContent=t('profileSub');$('learningLabel').textContent=t('tools');$('navQaTitle').textContent=t('qa');$('navQaSub').textContent=t('qaSub');$('navWhatifTitle').textContent=t('whatif');$('navWhatifSub').textContent=t('whatifSub');$('navRoleTitle').textContent=t('role');$('navRoleSub').textContent=t('roleSub');$('dustEyebrow').textContent=t('dustEyebrow');$('dustTitle').textContent=t('dustTitle');$('dustSub').textContent=t('dustSub');$('brushBtn').textContent=t('brush');$('skipDustBtn').textContent=t('skip');$('profileEyebrow').textContent=t('profileEyebrow');$('profileTitle').textContent=en?profile.nameEn:profile.name;$('profileLead').textContent=en?profile.intro.en:profile.intro.vi;$('timelineHeading').textContent=t('timeline');$('infoHeading').textContent=t('info');$('qaHeading').textContent=t('qa');$('qaHelp').textContent=t('qaHelp');$('qaInput').placeholder=t('qaPlaceholder');$('qaSendBtn').textContent=t('qaSend');$('qaMicBtn').textContent=t('mic');if(!$('qaResult').dataset.filled)$('qaResult').textContent=t('qaEmpty');$('whatifHeading').textContent=t('whatif');$('whatifHelp').textContent=t('whatifHelp');$('whatifInput').placeholder=t('whatifPlaceholder');$('whatifSendBtn').textContent=t('whatifSend');$('whatifMicBtn').textContent=t('mic');if(!$('whatifResult').dataset.filled)$('whatifResult').textContent=t('whatifEmpty');$('roleHeading').textContent=t('role');$('roleHelp').textContent=t('roleHelp');$('roleStartBtn').textContent=t('roleStart');$('roleExportBtn').textContent=t('roleExport');$('simulationLabel').textContent=t('simulation');$('sourcesHeading').textContent=t('sources');$('sourcesHelp').textContent=t('sourcesHelp');$('guideHeading').textContent=t('guide');$('journeyHeading').textContent=t('journey');$('journeySummaryTitle').textContent=t('summaryBtn');$('journeySummarySub').textContent=t('summarySub');$('summaryHeading').textContent=t('summary');$('summaryPdfBtn').textContent=t('pdf');$('newSessionBtn').textContent=t('newSession');renderProfile();renderSources();renderSuggestions();renderJourney();renderGuide();}
+function renderProfile(){const en=state.lang==='en';$('profileStats').innerHTML=[['Năm',profile.years],['Triều đại',en?profile.dynastyEn:profile.dynasty],['Trị vì',profile.reign],['Kinh đô',profile.capital]].map(([a,b])=>`<div class="stat"><small>${esc(a)}</small><b>${esc(b)}</b></div>`).join('');$('timeline').innerHTML=profile.timeline.map(x=>`<div class="timeline-item"><div class="timeline-year">${esc(x.year)}</div><div>${esc(en?x.en:x.vi)}<div class="source-inline">${x.sources.map(s=>`<button class="source-chip" data-source="${s}">${t('source')} ${s}</button>`).join('')}</div></div></div>`).join('');$('profileSections').innerHTML=profile.profileSections.map(x=>`<article class="profile-section"><h4>${esc(en?x.titleEn:x.title)}</h4><p>${esc(en?x.bodyEn:x.body)}</p><div class="source-inline">${x.sources.map(s=>`<button class="source-chip" data-source="${s}">${t('source')} ${s}</button>`).join('')}</div></article>`).join('');}
+function renderSources(){const en=state.lang==='en';$('sourcesList').innerHTML=profile.sources.map(s=>`<article class="source-card" id="src-${s.id}"><h4>${esc(en?s.titleEn:s.title)}</h4><p><b>${esc(en?s.orgEn:s.org)}</b></p><p>${esc(en?s.typeEn:s.type)}</p><a href="${esc(s.url)}" target="_blank" rel="noopener">${t('openSource')}</a></article>`).join('')}
+function renderSuggestions(){const en=state.lang==='en';const make=(arr,target,input)=>$(target).innerHTML=arr.map(x=>`<button class="chip" data-fill="${esc(x)}" data-input="${input}">${esc(x)}</button>`).join('');make(profile.qaSuggestions[en?'en':'vi'],'qaSuggestions','qaInput');make(profile.whatifSuggestions[en?'en':'vi'],'whatifSuggestions','whatifInput')}
+function renderGuide(){const items=state.lang==='vi'?['Kéo mô hình để xoay; chụm hoặc cuộn để phóng to.','Mở Hồ sơ để xem timeline và nguồn sử liệu.','Tra cứu sử liệu dùng kho dữ kiện đã biên tập.','Giả định lịch sử chỉ là mô phỏng nguyên nhân–hậu quả.','Nhập vai giúp cân nhắc quân sự, ngoại giao, lòng dân và hậu cần.']:['Drag the model to rotate; pinch or scroll to zoom.','Open Profile to inspect the timeline and sources.','Historical inquiry uses a curated evidence base.','Counterfactual analysis is a cause-and-effect learning simulation.','Role-play weighs military, diplomacy, public support and logistics.'];$('guideList').innerHTML=items.map(x=>`<li>${esc(x)}</li>`).join('')}
+function renderJourney(){const en=state.lang==='en';const names=en?{artifact:'Exhibit discovered',profile:'Profile opened',qa:'Historical inquiry used',whatif:'Counterfactual used',role:'Role-play used'}:{artifact:'Đã khám phá hiện vật',profile:'Đã mở hồ sơ',qa:'Đã tra cứu sử liệu',whatif:'Đã thử giả định',role:'Đã nhập vai'};$('journeyList').innerHTML=Object.keys(names).map(k=>`<div class="journey-item"><span>${names[k]}</span><b>${state.journey[k]?'✓':'○'}</b></div>`).join('')}
+
+function primeInstantSpeech(){
+  if(!('speechSynthesis' in window)||!('SpeechSynthesisUtterance' in window))return;
+  try{
+    const u=new SpeechSynthesisUtterance('\u200B');
+    u.volume=0;u.rate=1;
+    speechSynthesis.speak(u);
+    setTimeout(()=>speechSynthesis.cancel(),0);
+  }catch{}
+}
+function stopAIResponseAudio(){
+  try{speechSynthesis?.cancel()}catch{}
+  state.currentUtterance=null;
+  if(state.ttsAbortController){try{state.ttsAbortController.abort()}catch{}state.ttsAbortController=null}
+  if(state.currentTTS){
+    try{state.currentTTS.pause();state.currentTTS.currentTime=0;state.currentTTS.src=''}catch{}
+    state.currentTTS=null;
+  }
+  if(state.currentTTSUrl){try{URL.revokeObjectURL(state.currentTTSUrl)}catch{}state.currentTTSUrl=null}
+}
+function abortCurrentAIRequest(){
+  if(state.aiAbortController){try{state.aiAbortController.abort()}catch{}state.aiAbortController=null}
+}
+function stopCurrentAIWork(){
+  stopAIResponseAudio();
+  abortCurrentAIRequest();
+  state.aiRequestId++;
+}
+function beginAIRequest(){
+  stopAIResponseAudio();
+  abortCurrentAIRequest();
+  const controller=new AbortController();
+  state.aiAbortController=controller;
+  const requestId=++state.aiRequestId;
+  return {controller,requestId};
+}
+function getInstantVoice(){
+  if(!('speechSynthesis' in window))return null;
+  const voices=speechSynthesis.getVoices?.()||[];
+  if(!voices.length)return null;
+
+  if(state.lang==='en'){
+    // Ưu tiên giọng Anh. KHÔNG fallback sang giọng Việt.
+    return voices.find(v=>(v.lang||'').toLowerCase()==='en-us') ||
+           voices.find(v=>(v.lang||'').toLowerCase()==='en-gb') ||
+           voices.find(v=>(v.lang||'').toLowerCase().startsWith('en')) ||
+           null;
+  }
+
+  // Tiếng Việt chỉ dùng giọng Việt nếu thiết bị có.
+  return voices.find(v=>(v.lang||'').toLowerCase()==='vi-vn') ||
+         voices.find(v=>(v.lang||'').toLowerCase().startsWith('vi')) ||
+         null;
+}
+function warmSpeechVoices(){
+  if(!('speechSynthesis' in window))return;
+  try{speechSynthesis.getVoices()}catch{}
+}
+if('speechSynthesis' in window){
+  warmSpeechVoices();
+  try{speechSynthesis.addEventListener('voiceschanged',warmSpeechVoices)}catch{}
+}
+function speakWithBrowserVoice(text,voice){
+  if(!voice||!('speechSynthesis' in window)||!('SpeechSynthesisUtterance' in window))return false;
+  try{
+    const u=new SpeechSynthesisUtterance(String(text).replace(/[*#_`]/g,''));
+    // QUAN TRỌNG: chỉ dùng voice đã xác nhận đúng ngôn ngữ.
+    u.voice=voice;
+    u.lang=state.lang==='vi'?'vi-VN':'en-US';
+    u.volume=1;
+    u.rate=state.lang==='vi'?0.97:1.0;
+    u.pitch=1;
+    state.currentUtterance=u;
+    u.onend=u.onerror=()=>{if(state.currentUtterance===u)state.currentUtterance=null};
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+    return true;
+  }catch{return false}
+}
+
+function waitForCorrectVoice(maxWaitMs=450){
+  return new Promise(resolve=>{
+    const first=getInstantVoice();
+    if(first)return resolve(first);
+    if(!('speechSynthesis' in window))return resolve(null);
+    let done=false;
+    const finish=()=>{
+      if(done)return;done=true;
+      try{speechSynthesis.removeEventListener('voiceschanged',onVoices)}catch{}
+      resolve(getInstantVoice());
+    };
+    const onVoices=()=>{if(getInstantVoice())finish()};
+    try{speechSynthesis.addEventListener('voiceschanged',onVoices)}catch{}
+    setTimeout(finish,maxWaitMs);
+  });
+}
+
+async function speakInstant(text){
+  if(!state.audio||!text)return;
+  stopAIResponseAudio();
+  const requestLang=state.lang;
+  const cleanText=String(text).replace(/[*#_`]/g,'');
+
+  // Không bao giờ để trình duyệt tự chọn voice mặc định.
+  // Nếu đang VI mà không có vi-* trên Windows, browser có thể tự lấy voice EN.
+  // Vì vậy chỉ phát khi tìm thấy voice đúng ngôn ngữ.
+  const voice=await waitForCorrectVoice(450);
+  if(!state.audio||state.lang!==requestLang)return;
+  if(voice&&speakWithBrowserVoice(cleanText,voice))return;
+
+  // Không có voice đúng ngôn ngữ => dùng OpenAI TTS đúng VI/EN.
+  // Điều này chậm hơn một chút nhưng tuyệt đối không đọc sai ngôn ngữ.
+  speakOpenAIFallback(cleanText);
+}
+async function speakOpenAIFallback(text){
+  if(!state.audio||!text)return;
+  const controller=new AbortController();
+  state.ttsAbortController=controller;
+  try{
+    const r=await fetch(API+'/speak',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,lang:state.lang,characterId:profile.id}),signal:controller.signal});
+    if(!r.ok||controller.signal.aborted)return;
+    const blob=await r.blob();if(controller.signal.aborted)return;
+    const url=URL.createObjectURL(blob);state.currentTTSUrl=url;
+    const a=new Audio(url);a.volume=1;state.currentTTS=a;
+    a.onended=a.onerror=()=>{if(state.currentTTS===a)state.currentTTS=null;if(state.currentTTSUrl===url){URL.revokeObjectURL(url);state.currentTTSUrl=null}};
+    await a.play().catch(()=>{});
+  }catch(e){if(e?.name!=='AbortError')console.warn('TTS fallback error',e)}finally{if(state.ttsAbortController===controller)state.ttsAbortController=null}
+}
+
+function openPanel(id){stopAIResponseAudio();pauseNarration(true);qsa('.panel').forEach(p=>p.classList.add('hidden'));qsa('.tool-card').forEach(b=>b.classList.remove('active'));$(id).classList.remove('hidden');$('backdrop').classList.remove('hidden');const btn=qs(`[data-panel="${id}"]`);if(btn)btn.classList.add('active');if(id==='profilePanel'){state.journey.profile=true;renderJourney()}if(id==='qaPanel')state.journey.qa=true;if(id==='whatifPanel')state.journey.whatif=true;if(id==='roleplayPanel')state.journey.role=true;}
+function closePanels(){stopCurrentAIWork();qsa('.panel').forEach(p=>p.classList.add('hidden'));$('backdrop').classList.add('hidden');qsa('.tool-card').forEach(b=>b.classList.remove('active'));resumeNarration()}
+function narration(){return state.lang==='vi'?$('narrationVi'):$('narrationEn')}
+function unlockNarrationAudio(){
+  if(!state.audio)return;
+  const a=narration();
+  try{
+    // iPhone/Safari: bắt đầu media ngay trong thao tác bấm của người dùng,
+    // nhưng GIỮ MUTED suốt màn quét bụi. Không bỏ mute trong Promise .then().
+    a.pause();
+    try{a.currentTime=0}catch{}
+    a.volume=1;
+    a.loop=true;
+    a.muted=true;
+    const p=a.play();
+    if(p&&typeof p.then==='function'){
+      p.then(()=>{
+        state.audioUnlocked=true;
+        state.narrationPrimed=true;
+        // CỐ Ý không pause và không unmute ở đây.
+      }).catch(()=>{
+        a.loop=false;
+        state.narrationPrimed=false;
+      });
+    }else{
+      state.audioUnlocked=true;
+      state.narrationPrimed=true;
+    }
+  }catch{}
+}
+function releaseDustMicro(){
+  try{state.dustStream?.getTracks?.().forEach(track=>track.stop())}catch{}
+  state.dustStream=null;
+  try{if(state.dustAudioContext&&state.dustAudioContext.state!=='closed')state.dustAudioContext.close()}catch{}
+  state.dustAudioContext=null;
+}
+function beginNarrationAfterDust(){
+  if(!state.audio)return;
+  const a=narration();
+  try{
+    // Chỉ tại thời điểm hiện vật đã mở xong mới cho người dùng nghe.
+    a.loop=false;
+    try{a.currentTime=0}catch{}
+    a.volume=1;
+    a.muted=false;
+    state.narrationPrimed=false;
+    const p=a.play();
+    if(p&&typeof p.catch==='function')p.catch(()=>{
+      state.narrationShouldResume=true;
+    });
+  }catch{
+    state.narrationShouldResume=true;
+  }
+}
+function playNarrationNow(){
+  if(!state.audio)return;
+  const a=narration();
+  a.muted=false;a.volume=1;
+  const p=a.play();
+  if(p&&typeof p.catch==='function')p.catch(()=>{
+    // Nếu Safari vẫn chặn, giữ trạng thái để nút loa chỉ cần resume, không phát lại từ đầu.
+    state.narrationShouldResume=true;
+  });
+}
+function pauseNarration(remember=false){const a=narration();if(remember&&(!a.paused||state.narrationShouldResume))state.narrationShouldResume=true;a.pause()}
+function resumeNarration(){if(!state.audio||!state.narrationShouldResume)return;state.narrationShouldResume=false;narration().play().catch(()=>{})}
+function startMain(){state.sessionStart=Date.now();state.mainStarted=true;$('header').classList.remove('hidden');$('mainDock').classList.remove('hidden');$('utilityBar').classList.remove('hidden');state.journey.artifact=true;renderJourney();if(state.audio){state.narrationShouldResume=false;beginNarrationAfterDust()}resetIdle()}
+function initDust(){const c=$('dustCanvas'),ctx=c.getContext('2d',{willReadFrequently:true});function size(){c.width=c.clientWidth;c.height=c.clientHeight;ctx.globalCompositeOperation='source-over';ctx.fillStyle='#6c5a45';ctx.fillRect(0,0,c.width,c.height);for(let i=0;i<150;i++){ctx.fillStyle=`rgba(30,25,20,${Math.random()*.18})`;ctx.beginPath();ctx.arc(Math.random()*c.width,Math.random()*c.height,Math.random()*28,0,Math.PI*2);ctx.fill()}}size();addEventListener('resize',()=>{if(!state.dustDone)size()});let drawing=false,last=null,started=false;const fade=()=>{if(started)return;started=true;$('dustInstruction').classList.add('is-fading')};function erase(x,y,rad=55){fade();ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(x,y,rad,0,Math.PI*2);ctx.fill();check()};function pos(e){const r=c.getBoundingClientRect(),p=e.touches?.[0]||e;return{x:p.clientX-r.left,y:p.clientY-r.top}}c.addEventListener('pointerdown',e=>{if(!state.brush)return;drawing=true;last=pos(e);erase(last.x,last.y)});c.addEventListener('pointermove',e=>{if(!drawing||!state.brush)return;const p=pos(e);erase(p.x,p.y,48);last=p});addEventListener('pointerup',()=>drawing=false);$('brushBtn').onclick=()=>{state.brush=true;fade();showToast(state.lang==='vi'?'Đã bật chế độ chổi.':'Brush mode enabled.')};$('skipDustBtn').onclick=()=>finishDust();let checks=0;const revealThreshold=48;function check(){if(++checks%5)return;const d=ctx.getImageData(0,0,c.width,c.height).data;let clear=0,total=d.length/4;for(let i=3;i<d.length;i+=4)if(d[i]<100)clear++;const rawPct=Math.min(100,Math.round(clear/total*100));const displayPct=Math.min(100,Math.round(rawPct/revealThreshold*100));$('dustProgressBar').style.width=displayPct+'%';$('dustProgressText').textContent=displayPct+'%';if(rawPct>=revealThreshold||displayPct>=100)finishDust()}navigator.mediaDevices?.getUserMedia({audio:true}).then(stream=>{state.dustStream=stream;const C=window.AudioContext||window.webkitAudioContext,ac=new C();state.dustAudioContext=ac;const an=ac.createAnalyser(),src=ac.createMediaStreamSource(stream);src.connect(an);an.fftSize=256;const arr=new Uint8Array(an.frequencyBinCount);let streak=0;function tick(){if(state.dustDone)return;an.getByteFrequencyData(arr);let avg=arr.reduce((a,b)=>a+b,0)/arr.length;if(avg>52){fade();streak++;for(let i=0;i<(streak>8?3:1);i++)erase(Math.random()*c.width,Math.random()*c.height,streak>8?78:58)}else streak=Math.max(0,streak-2);requestAnimationFrame(tick)}tick()}).catch(()=>{state.brush=true})}
+function finishDust(){if(state.dustDone)return;state.dustDone=true;releaseDustMicro();$('dustProgressBar').style.width='100%';$('dustProgressText').textContent='100%';$('dustInstruction').classList.add('is-fading');$('dustCanvas').style.opacity='0';$('secretText').textContent=profile.dustSecret[state.lang];setTimeout(()=>{$('dustScreen').classList.add('hidden');startMain()},1500)}
+function showToast(m){$('toast').textContent=m;$('toast').classList.remove('hidden');clearTimeout(state.toastTimer);state.toastTimer=setTimeout(()=>$('toast').classList.add('hidden'),2200)}
+async function api(path,body,signal=null){const r=await fetch(API+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,characterId:profile.id,lang:state.lang}),signal});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.message||'API error');return d}
+function sourceButtons(ids=[]){return ids.map(id=>`<button class="source-chip" data-source="${id}">${t('source')} ${id}</button>`).join('')}
+async function sendQa(){
+  const q=$('qaInput').value.trim();if(!q)return;
+  primeInstantSpeech();
+  const {controller,requestId}=beginAIRequest();
+  $('qaStatus').textContent=t('processing');$('qaResult').textContent='';$('qaResult').dataset.filled='1';
+  try{
+    const d=await api('/ask',{question:q},controller.signal);
+    if(controller.signal.aborted||requestId!==state.aiRequestId)return;
+    state.aiAbortController=null;
+    state.qaCount++;state.questions.push(q);state.journey.qa=true;
+    $('qaResult').innerHTML=`<div class="result-block"><h4>${esc(d.answerType||'')}</h4><p>${esc(d.reply||'')}</p></div>${d.evidencePoints?.length?`<div class="result-block"><h4>${state.lang==='vi'?'Dữ kiện hỗ trợ':'Supporting evidence'}</h4><ul>${d.evidencePoints.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}<div class="source-inline">${sourceButtons(d.sourceIds)}</div><p><i>${esc(d.evidenceNote||'')}</i></p>`;
+    // Đọc NGAY sau khi chữ vừa được đưa ra màn hình.
+    speakInstant(d.reply);
+    $('qaStatus').textContent=t('done');renderJourney();
+    saveInteraction('Tra cứu sử liệu',[{role:'user',content:q},{role:'assistant',content:JSON.stringify(d)}]);
+  }catch(e){if(e?.name==='AbortError'||controller.signal.aborted)return;$('qaStatus').textContent=t('error')}
+}
+async function sendWhatif(){
+  const q=$('whatifInput').value.trim();if(!q)return;
+  primeInstantSpeech();
+  const {controller,requestId}=beginAIRequest();
+  $('whatifStatus').textContent=t('processing');$('whatifResult').dataset.filled='1';
+  try{
+    const d=await api('/whatif',{scenario:q,history:[]},controller.signal);
+    if(controller.signal.aborted||requestId!==state.aiRequestId)return;
+    state.aiAbortController=null;
+    state.whatifCount++;state.questions.push(q);state.journey.whatif=true;
+    $('whatifResult').innerHTML=`<div class="result-block"><h4>${state.lang==='vi'?'Mốc có thật':'Historical baseline'}</h4><p>${esc(d.baseline||'')}</p><div class="source-inline">${sourceButtons(d.sourceIds)}</div></div><div class="result-block"><h4>${state.lang==='vi'?'Điều kiện thay đổi':'Changed assumption'}</h4><p>${esc(d.changedAssumption||'')}</p></div><div class="result-block"><h4>${state.lang==='vi'?'Hệ quả có thể':'Possible consequences'}</h4><ol>${(d.consequences||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ol></div><div class="result-block"><h4>${state.lang==='vi'?'Điểm bất định':'Uncertainty'}</h4><p>${esc(d.uncertainty||'')}</p></div>`;
+    speakInstant([d.baseline,...(d.consequences||[]),d.uncertainty].filter(Boolean).join('. '));
+    $('whatifStatus').textContent=t('done');renderJourney();
+    saveInteraction('Giả định lịch sử',[{role:'user',content:q},{role:'assistant',content:JSON.stringify(d)}]);
+  }catch(e){if(e?.name==='AbortError'||controller.signal.aborted)return;$('whatifStatus').textContent=t('error')}
+}
+async function roleTurn(choice=null){
+  primeInstantSpeech();
+  const {controller,requestId}=beginAIRequest();
+  if(choice)state.roleHistory.push({role:'user',content:choice});
+  $('roleStatus').textContent=t('processing');$('roleChoices').innerHTML='';
+  try{
+    const d=await api('/roleplay',{history:state.roleHistory,turn:state.roleTurn},controller.signal);
+    if(controller.signal.aborted||requestId!==state.aiRequestId)return;
+    state.aiAbortController=null;
+    state.roleHistory.push({role:'assistant',content:JSON.stringify(d)});
+    $('roleTurn').textContent=`${state.lang==='vi'?'Lượt':'Turn'} ${state.roleTurn} / 6`;
+    $('roleResult').dataset.filled='1';
+    $('roleResult').innerHTML=`${d.feedback?`<p><b>${state.lang==='vi'?'Nhận xét':'Feedback'}:</b> ${esc(d.feedback)}</p>`:''}<p>${esc(d.npcDialogue||'')}</p><div class="source-inline">${sourceButtons(d.sourceIds)}</div>`;
+    if(d.isGameOver||state.roleTurn>=6){
+      state.roleCount++;state.journey.role=true;
+      $('roleResult').innerHTML+=`<hr><p><b>${state.lang==='vi'?'Tổng kết':'Summary'}:</b> ${esc(d.endReason||'')}</p>`;
+      $('roleExportBtn').classList.remove('hidden');saveInteraction('Nhập vai quyết sách',state.roleHistory);renderJourney();
+    }else{
+      (d.choices||[]).forEach(c=>{const b=document.createElement('button');b.className='choice-btn';b.textContent=c;b.onclick=()=>{state.roleTurn++;roleTurn(c)};$('roleChoices').appendChild(b)});
+    }
+    speakInstant([d.npcDialogue,d.isGameOver?d.endReason:''].filter(Boolean).join('. '));
+    $('roleStatus').textContent=t('done');
+  }catch(e){if(e?.name==='AbortError'||controller.signal.aborted)return;$('roleStatus').textContent=t('error')}
+}
+// Giữ tên speak() để các phần mã cũ tương thích, nhưng mặc định đọc tức thời.
+function speak(text){speakInstant(text)}
+async function saveInteraction(type,history){fetch(API+'/save-report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({eventType:'interaction',sessionId:state.sessionId,playerName:state.name,character:profile.name,characterId:profile.id,type,history,lang:state.lang})}).catch(()=>{})}
+async function sendSummary(reason='user-finish'){if(!state.sessionStart)return;const duration=Math.max(1,Math.round((Date.now()-state.sessionStart)/1000));fetch(API+'/save-report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({eventType:'session_summary',sessionId:state.sessionId,playerName:state.name,character:profile.name,characterId:profile.id,type:'Tổng kết phiên',history:[],lang:state.lang,metadata:{durationSeconds:duration,qaCount:state.qaCount,whatifCount:state.whatifCount,roleplayCount:state.roleCount,journey:state.journey,questions:state.questions,reason}})}).catch(()=>{})}
+function showSummary(){const sec=state.sessionStart?Math.round((Date.now()-state.sessionStart)/1000):0,m=Math.floor(sec/60),s=sec%60;$('summarySub').textContent=`${state.name} • ${m}:${String(s).padStart(2,'0')}`;$('summaryStats').innerHTML=[[state.lang==='vi'?'Thời gian':'Time',`${m}:${String(s).padStart(2,'0')}`],[t('qa'),state.qaCount],[t('whatif'),state.whatifCount],[t('role'),state.roleCount]].map(([a,b])=>`<div class="summary-card"><small>${esc(a)}</small><b>${esc(b)}</b></div>`).join('');$('summaryJourney').innerHTML=$('journeyList').innerHTML;openPanel('summaryPanel')}
+function resetCamera(){$('historyModel').cameraOrbit='0deg 75deg 105%';$('historyModel').cameraTarget='auto auto auto'}
+function changeLang(){stopCurrentAIWork();pauseNarration(false);state.lang=state.lang==='vi'?'en':'vi';warmSpeechVoices();qsa('.result-card').forEach(x=>{x.dataset.filled='';x.innerHTML=''});renderAll();if(state.mainStarted&&state.audio&&!qsa('.panel').some(p=>!p.classList.contains('hidden')))narration().play().catch(()=>{})}
+function setupMic(btnId,inputId){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){$(btnId).onclick=()=>showToast(state.lang==='vi'?'Trình duyệt không hỗ trợ nhận dạng giọng nói.':'Speech recognition is not supported.');return}const r=new SR();r.interimResults=true;let active=false;$(btnId).onclick=()=>{if(active){r.stop();return}r.lang=state.lang==='vi'?'vi-VN':'en-US';try{r.start();active=true;$(btnId).textContent=t('micStop')}catch{}};r.onresult=e=>{let text='';for(let i=e.resultIndex;i<e.results.length;i++)text+=e.results[i][0].transcript;$(inputId).value=text};r.onend=()=>{active=false;$(btnId).textContent=t('mic')};r.onerror=()=>{active=false;$(btnId).textContent=t('mic')}}
+function resetIdle(){clearTimeout(state.idleTimer);if(CFG.ENABLE_KIOSK_RESET!==false)state.idleTimer=setTimeout(async()=>{await sendSummary('kiosk-idle');location.reload()},Number(CFG.KIOSK_IDLE_MS||180000))}
+['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,resetIdle,{passive:true}));
+qsa('[data-panel]').forEach(b=>b.addEventListener('click',()=>openPanel(b.dataset.panel)));qsa('.panel-close').forEach(b=>b.addEventListener('click',closePanels));$('backdrop').onclick=closePanels;document.addEventListener('click',e=>{const s=e.target.closest('[data-source]');if(s){openPanel('sourcesPanel');setTimeout(()=>document.getElementById('src-'+s.dataset.source)?.scrollIntoView({behavior:'smooth',block:'center'}),100)}const f=e.target.closest('[data-fill]');if(f)$(f.dataset.input).value=f.dataset.fill});
+$('startBtn').onclick=()=>{primeInstantSpeech();state.name=$('playerName').value.trim()||'Người học';localStorage.setItem('history_name',state.name);unlockNarrationAudio();$('intro').classList.add('hidden');$('dustScreen').classList.remove('hidden');initDust()};$('introLangBtn').onclick=changeLang;$('langBtn').onclick=changeLang;$('resetCameraBtn').onclick=resetCamera;$('audioBtn').onclick=()=>{state.audio=!state.audio;$('audioBtn').textContent=state.audio?'🔊':'🔇';if(!state.audio){$('narrationVi').pause();$('narrationEn').pause();$('narrationVi').loop=false;$('narrationEn').loop=false;stopAIResponseAudio()}else if(state.mainStarted&&qsa('.panel').every(p=>p.classList.contains('hidden'))){state.narrationShouldResume=false;playNarrationNow()}};$('qaSendBtn').onclick=sendQa;$('whatifSendBtn').onclick=sendWhatif;$('roleStartBtn').onclick=()=>{state.roleHistory=[];state.roleTurn=1;roleTurn()};$('journeySummaryBtn').onclick=showSummary;$('finishBtn').onclick=showSummary;$('summaryPdfBtn').onclick=()=>{if(window.html2pdf)html2pdf().set({margin:.5,filename:'Tong_ket_Le_Hoan.pdf',html2canvas:{scale:2},jsPDF:{unit:'in',format:'a4',orientation:'portrait'}}).from($('summaryPrintable')).save()};$('roleExportBtn').onclick=()=>{if(window.html2pdf)html2pdf().set({margin:.5,filename:'Nhap_vai_Le_Hoan.pdf'}).from($('roleplayPanel')).save()};$('newSessionBtn').onclick=async()=>{await sendSummary('new-session');location.reload()};setupMic('qaMicBtn','qaInput');setupMic('whatifMicBtn','whatifInput');$('playerName').value=localStorage.getItem('history_name')||'';
+const model=$('historyModel');model.addEventListener('load',()=>{$('modelState').classList.add('hidden')});model.addEventListener('error',()=>{$('modelStateTitle').textContent=t('modelError');$('retryModelBtn').classList.remove('hidden')});$('retryModelBtn').onclick=()=>{model.src='';setTimeout(()=>model.src=profile.model,50)};
+fetch(API+'/health').then(r=>r.ok?r.json():Promise.reject()).then(()=>{$('connectionBadge').textContent=t('connected');$('connectionBadge').className='connection ok'}).catch(()=>{$('connectionBadge').textContent=t('offline');$('connectionBadge').className='connection bad'});
+loadProfile().catch(e=>{$('modelStateTitle').textContent='Lỗi tải dữ liệu';$('modelStateText').textContent=e.message});
+})();
