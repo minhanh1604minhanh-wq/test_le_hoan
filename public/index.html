@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#efe4c9">
+  <title>Bảo tàng lịch sử tương tác — Lê Hoàn</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js" defer></script>
+</head>
+<body>
+  <!-- Bộ biểu tượng nét mực: nhúng trực tiếp, không cần ảnh PNG ngoài -->
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="icon-profile" viewBox="0 0 48 48">
+      <path d="M13 10h22v25H17a4 4 0 0 1-4-4V10Z" fill="none" stroke="currentColor" stroke-width="2.2"/>
+      <path d="M17 16h14M17 22h14M17 28h9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="32" cy="32" r="5.5" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="m35.7 35.7 4.2 4.2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-sources" viewBox="0 0 48 48">
+      <path d="M9 12h22a5 5 0 0 1 5 5v19H14a5 5 0 0 1-5-5V12Z" fill="none" stroke="currentColor" stroke-width="2.2"/>
+      <path d="M14 18h16M14 24h16M14 30h9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M36 18h3v21H17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-branch" viewBox="0 0 48 48">
+      <circle cx="12" cy="24" r="3" fill="none" stroke="currentColor" stroke-width="2.2"/>
+      <circle cx="36" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2.2"/>
+      <circle cx="36" cy="36" r="3" fill="none" stroke="currentColor" stroke-width="2.2"/>
+      <path d="M15 24h7c7 0 7-12 14-12M22 24c7 0 7 12 14 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-decision" viewBox="0 0 48 48">
+      <path d="M13 8v32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M15 11h23l-5 7 5 7H15Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M21 17h10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M21 32h16M21 37h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-help" viewBox="0 0 48 48">
+      <circle cx="24" cy="24" r="17" fill="none" stroke="currentColor" stroke-width="2.2"/>
+      <path d="M18.8 18.5c.7-3.2 3.4-5 6.7-5 4.1 0 7 2.4 7 5.8 0 3-1.8 4.5-4.6 6.2-2.6 1.5-3.7 3-3.7 5.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="24.2" cy="35.3" r="1.4" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-index" viewBox="0 0 48 48">
+      <path d="M11 11h26v26H11z" fill="none" stroke="currentColor" stroke-width="2.2"/>
+      <path d="M17 17h14M17 24h14M17 31h9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M13 8h22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-journey" viewBox="0 0 48 48">
+      <path d="M11 37c3-12 9-19 18-23" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="2.5 4"/>
+      <path d="M29 14h10l-4 5 4 5H29V14Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+      <circle cx="11" cy="37" r="3" fill="none" stroke="currentColor" stroke-width="2.2"/>
+    </symbol>
+    <symbol id="icon-reset" viewBox="0 0 48 48">
+      <path d="M15 16a15 15 0 1 1-3 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M15 8v8H7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="24" cy="24" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+    </symbol>
+    <symbol id="icon-sound-on" viewBox="0 0 48 48">
+      <path d="M10 20h7l9-8v24l-9-8h-7Z" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linejoin="round"/>
+      <path d="M31 18c2.5 1.8 3.8 3.8 3.8 6s-1.3 4.2-3.8 6M35 13.5c4.2 3.1 6.3 6.6 6.3 10.5S39.2 31.4 35 34.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-sound-off" viewBox="0 0 48 48">
+      <path d="M10 20h7l9-8v24l-9-8h-7Z" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linejoin="round"/>
+      <path d="m32 19 9 10M41 19l-9 10" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-finish" viewBox="0 0 48 48">
+      <rect x="12" y="12" width="24" height="24" rx="3" fill="none" stroke="currentColor" stroke-width="2.4"/>
+      <path d="M17 17h14v14H17z" fill="currentColor" opacity=".92"/>
+    </symbol>
+  </svg>
+  <model-viewer id="historyModel" camera-controls auto-rotate rotation-per-second="-8deg" interaction-prompt="none" shadow-intensity="1.1" exposure="1.08" environment-image="neutral" camera-orbit="0deg 75deg 105%" min-camera-orbit="auto auto 45%" max-camera-orbit="auto auto 220%" alt="Mô hình 3D Lê Hoàn"></model-viewer>
+
+  <div id="modelState" class="model-state card" role="status">
+    <strong id="modelStateTitle">Đang chuẩn bị mô hình 3D…</strong>
+    <span id="modelStateText">Đang tải hiện vật.</span>
+    <button id="retryModelBtn" class="btn small hidden" type="button">Tải lại mô hình</button>
+  </div>
+
+  <header id="header" class="header hidden">
+    <div class="identity-card card">
+      <span class="file-chip" id="fileChip">HỒ SƠ 01</span>
+      <div class="identity-copy">
+        <small id="periodText">Đại Cồ Việt</small>
+        <h1 id="characterName">Lê Hoàn</h1>
+      </div>
+    </div>
+    <div id="connectionBadge" class="connection checking">● Đang kiểm tra</div>
+  </header>
+
+  <section id="intro" class="intro-screen">
+    <div class="intro-card card">
+      <p class="eyebrow" id="introEyebrow">BẢO TÀNG LỊCH SỬ SỐ TƯƠNG TÁC</p>
+      <h1 id="introName">LÊ HOÀN</h1>
+      <p id="introText">Đang tải hồ sơ…</p>
+      <div id="introMeta" class="meta-row"></div>
+      <label id="nameLabel" for="playerName">Tên người khám phá</label>
+      <div class="start-row">
+        <input id="playerName" maxlength="40" autocomplete="name" placeholder="Nhập tên của bạn…">
+        <button id="startBtn" class="btn primary" type="button">Bắt đầu khám phá</button>
+      </div>
+      <button id="introLangBtn" class="link-btn" type="button">English</button>
+    </div>
+  </section>
+
+  <section id="dustScreen" class="dust-screen hidden" aria-label="Khám phá hiện vật">
+    <div class="dust-card card">
+      <div id="secretText" class="secret-text"></div>
+      <canvas id="dustCanvas"></canvas>
+      <div id="dustInstruction" class="dust-instruction">
+        <p class="eyebrow" id="dustEyebrow">KHÁM PHÁ HIỆN VẬT</p>
+        <h2 id="dustTitle">Thổi vào micro hoặc quét lớp bụi thời gian</h2>
+        <p id="dustSub">Micro chỉ nhận cường độ hơi thổi. Không phát âm thanh quét hoặc thổi.</p>
+      </div>
+      <div class="dust-footer">
+        <div class="dust-progress"><span id="dustProgressBar"></span></div>
+        <span id="dustProgressText">0%</span>
+        <button id="brushBtn" class="btn small" type="button">Dùng chổi</button>
+        <button id="skipDustBtn" class="link-btn" type="button">Bỏ qua</button>
+      </div>
+    </div>
+  </section>
+
+  <nav id="mainDock" class="main-dock hidden" aria-label="Chức năng chính">
+    <span id="learningLabel" class="learning-label dock-label">CÔNG CỤ HỌC TẬP</span>
+
+    <button id="navProfile" class="tool-card profile-tool" data-panel="profilePanel" type="button">
+      <span class="tool-medallion profile-medallion" aria-hidden="true">
+        <svg class="tool-svg"><use href="#icon-profile"></use></svg>
+      </span>
+      <span class="tool-copy"><b id="navProfileTitle">Hồ sơ</b><small id="navProfileSub">Thông tin &amp; nguồn</small></span>
+      <span class="arrow" aria-hidden="true">›</span>
+    </button>
+
+    <button id="navQa" class="tool-card qa-tool" data-panel="qaPanel" type="button">
+      <span class="tool-medallion qa-medallion" aria-hidden="true">
+        <svg class="tool-svg"><use href="#icon-sources"></use></svg>
+      </span>
+      <span class="tool-copy"><b id="navQaTitle">Tra cứu sử liệu</b><small id="navQaSub">Đặt câu hỏi lịch sử</small></span>
+      <span class="arrow" aria-hidden="true">›</span>
+    </button>
+
+    <button id="navWhatif" class="tool-card whatif-tool" data-panel="whatifPanel" type="button">
+      <span class="tool-medallion whatif-medallion" aria-hidden="true">
+        <svg class="tool-svg"><use href="#icon-branch"></use></svg>
+      </span>
+      <span class="tool-copy"><b id="navWhatifTitle">Giả định lịch sử</b><small id="navWhatifSub">Phân tích “nếu như”</small></span>
+      <span class="arrow" aria-hidden="true">›</span>
+    </button>
+
+    <button id="navRoleplay" class="tool-card role-tool" data-panel="roleplayPanel" type="button">
+      <span class="tool-medallion role-medallion" aria-hidden="true">
+        <svg class="tool-svg"><use href="#icon-decision"></use></svg>
+      </span>
+      <span class="tool-copy"><b id="navRoleTitle">Nhập vai quyết sách</b><small id="navRoleSub">Chọn phương án xử lý</small></span>
+      <span class="arrow" aria-hidden="true">›</span>
+    </button>
+  </nav>
+
+  <aside id="utilityBar" class="utility-bar hidden" aria-label="Công cụ phụ">
+    <button class="utility-btn" data-panel="guidePanel" title="Hướng dẫn" aria-label="Hướng dẫn" type="button">
+      <svg class="utility-svg" aria-hidden="true"><use href="#icon-help"></use></svg>
+    </button>
+    <button class="utility-btn" data-panel="sourcesPanel" title="Nguồn sử liệu" aria-label="Nguồn sử liệu" type="button">
+      <svg class="utility-svg" aria-hidden="true"><use href="#icon-index"></use></svg>
+    </button>
+    <button class="utility-btn" data-panel="journeyPanel" title="Hành trình khám phá" aria-label="Hành trình khám phá" type="button">
+      <svg class="utility-svg" aria-hidden="true"><use href="#icon-journey"></use></svg>
+    </button>
+    <button id="resetCameraBtn" class="utility-btn" title="Góc nhìn ban đầu" aria-label="Góc nhìn ban đầu" type="button">
+      <svg class="utility-svg" aria-hidden="true"><use href="#icon-reset"></use></svg>
+    </button>
+    <button id="audioBtn" class="utility-btn" title="Âm thanh" aria-label="Âm thanh" type="button">
+      <svg class="utility-svg" aria-hidden="true"><use id="audioIconUse" href="#icon-sound-on"></use></svg>
+    </button>
+    <button id="langBtn" class="utility-btn text language-btn" title="Ngôn ngữ" aria-label="Đổi ngôn ngữ" type="button">EN</button>
+    <button id="finishBtn" class="utility-btn finish" title="Kết thúc" aria-label="Kết thúc" type="button">
+      <svg class="utility-svg" aria-hidden="true"><use href="#icon-finish"></use></svg>
+    </button>
+  </aside>
+
+  <div id="backdrop" class="backdrop hidden"></div>
+
+  <section id="profilePanel" class="panel hidden">
+    <button class="panel-close" type="button">×</button>
+    <div class="panel-head"><p class="eyebrow" id="profileEyebrow">HỒ SƠ NHÂN VẬT</p><h2 id="profileTitle">Lê Hoàn</h2><p id="profileLead"></p></div>
+    <div id="profileStats" class="stats-grid"></div>
+    <h3 id="timelineHeading">Dòng thời gian</h3>
+    <div id="timeline" class="timeline"></div>
+    <h3 id="infoHeading">Thông tin đầy đủ</h3>
+    <div id="profileSections" class="profile-sections"></div>
+  </section>
+
+  <section id="qaPanel" class="panel hidden">
+    <button class="panel-close" type="button">×</button>
+    <div class="panel-head"><p class="eyebrow" id="qaEyebrow">HOẠT ĐỘNG 1</p><h2 id="qaHeading">Tra cứu sử liệu</h2><p id="qaHelp">Câu trả lời phải chỉ ra dữ kiện nền, nguồn hỗ trợ và phần cần kiểm chứng.</p></div>
+    <div id="qaSuggestions" class="chips"></div>
+    <div class="query-row"><input id="qaInput" maxlength="600"><button id="qaMicBtn" class="btn small" type="button">🎙 Mic</button><button id="qaSendBtn" class="btn primary small" type="button">Tra cứu</button></div>
+    <div id="qaStatus" class="activity-status"></div>
+    <div id="qaResult" class="result-card empty"></div>
+  </section>
+
+  <section id="whatifPanel" class="panel hidden">
+    <button class="panel-close" type="button">×</button>
+    <div class="panel-head"><p class="eyebrow" id="whatifEyebrow">HOẠT ĐỘNG 2</p><h2 id="whatifHeading">Giả định lịch sử</h2><p id="whatifHelp">Mô phỏng để học quan hệ nguyên nhân–hậu quả, không phải dự đoán lịch sử.</p></div>
+    <div id="whatifSuggestions" class="chips"></div>
+    <div class="query-row"><input id="whatifInput" maxlength="700"><button id="whatifMicBtn" class="btn small" type="button">🎙 Mic</button><button id="whatifSendBtn" class="btn primary small" type="button">Phân tích</button></div>
+    <div id="whatifStatus" class="activity-status"></div>
+    <div id="whatifResult" class="result-card empty"></div>
+  </section>
+
+  <section id="roleplayPanel" class="panel hidden">
+    <button class="panel-close" type="button">×</button>
+    <div class="panel-head"><p class="eyebrow" id="roleEyebrow">HOẠT ĐỘNG 3</p><h2 id="roleHeading">Nhập vai quyết sách</h2><p id="roleHelp">Cân nhắc quân sự, ngoại giao, lòng dân và hậu cần.</p></div>
+    <div class="role-meta"><span id="roleTurn">Lượt 0 / 6</span><span id="simulationLabel">⚑ Mô phỏng giáo dục</span></div>
+    <div id="roleStatus" class="activity-status"></div>
+    <div id="roleResult" class="result-card empty"></div>
+    <div id="roleChoices" class="choice-list"></div>
+    <div class="panel-actions"><button id="roleStartBtn" class="btn primary" type="button">Bắt đầu tình huống</button><button id="roleExportBtn" class="btn hidden" type="button">Xuất phiếu học tập</button></div>
+  </section>
+
+  <section id="sourcesPanel" class="panel compact hidden">
+    <button class="panel-close" type="button">×</button>
+    <div class="panel-head"><p class="eyebrow" id="sourcesEyebrow">KIỂM CHỨNG</p><h2 id="sourcesHeading">Nguồn sử liệu</h2><p id="sourcesHelp">Mỗi nguồn có vai trò khác nhau; không dùng một nguồn hiện đại thay cho mọi chi tiết cổ.</p></div>
+    <div id="sourcesList" class="sources-list"></div>
+  </section>
+
+  <section id="guidePanel" class="panel compact hidden">
+    <button class="panel-close" type="button">×</button>
+    <div class="panel-head"><p class="eyebrow" id="guideEyebrow">HƯỚNG DẪN</p><h2 id="guideHeading">Cách khám phá</h2></div>
+    <ol id="guideList" class="guide-list"></ol>
+  </section>
+
+  <section id="journeyPanel" class="panel compact hidden">
+    <button class="panel-close" type="button">×</button>
+    <div class="panel-head"><p class="eyebrow" id="journeyEyebrow">HÀNH TRÌNH</p><h2 id="journeyHeading">Tiến trình khám phá</h2></div>
+    <div id="journeyList" class="journey-list"></div>
+    <button id="journeySummaryBtn" class="journey-summary-btn" type="button"><span>◎</span><span><b id="journeySummaryTitle">Xem tổng kết hành trình</b><small id="journeySummarySub">Thời gian • hoạt động • tiến trình</small></span><strong>→</strong></button>
+  </section>
+
+  <section id="summaryPanel" class="panel compact hidden">
+    <button class="panel-close" type="button">×</button>
+    <div id="summaryPrintable"><div class="panel-head"><p class="eyebrow" id="summaryEyebrow">TỔNG KẾT</p><h2 id="summaryHeading">Hành trình khám phá Lê Hoàn</h2><p id="summarySub"></p></div><div id="summaryStats" class="summary-grid"></div><div id="summaryJourney"></div></div>
+    <div class="panel-actions"><button id="summaryPdfBtn" class="btn" type="button">Xuất PDF</button><button id="newSessionBtn" class="btn primary" type="button">Phiên mới</button></div>
+  </section>
+
+  <div id="toast" class="toast hidden"></div>
+  <audio id="narrationVi" preload="auto"></audio>
+  <audio id="narrationEn" preload="auto"></audio>
+  <script src="./config.js"></script>
+  <script src="./app.js" defer></script>
+</body>
+</html>
